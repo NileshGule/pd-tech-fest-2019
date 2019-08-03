@@ -67,6 +67,8 @@ helm repo add kedacore https://kedacore.azureedge.net/helm
 
 helm repo update
 
+Write-Host "Initializing KEDA on AKS cluster $clusterName" -ForegroundColor Green
+
 helm install kedacore/keda-edge `
     --devel `
     --set logLevel=debug `

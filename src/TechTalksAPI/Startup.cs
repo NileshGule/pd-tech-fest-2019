@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using TechTalksAPI.Model;
+using TechTalksAPI.Messaging;
 
 namespace TechTalksAPI
 {
@@ -23,11 +24,14 @@ namespace TechTalksAPI
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            // services.AddDbContext<KeyValueContext>(o => o.UseInMemoryDatabase("KeyValueDB"));
 
-            services.AddDbContext<TechTalksDBContext>
-            (
-                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            );
+            // services.AddDbContext<TechTalksDBContext>
+            // (
+            //     options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+            // );
+
+            services.AddTransient<ITechTalksEventPublisher, TechTalksEventPublisher>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

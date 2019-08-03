@@ -10,7 +10,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.ENtityFrameworkCore.SqlServer" Version="2.1.0" />
+    <!-- <PackageReference Include="Microsoft.ENtityFrameworkCore.SqlServer" Version="2.1.0" /> -->
+    <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TechTalksModel\TechTalksModel.csproj" />
   </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace TechTalksMQProcessor
             Console.WriteLine("Starting to read from the queue");
 
             techTalksEventConsumer.ConsumeMessage();
-                  
+
         }
 
         static void ConfigureEnvironment()
@@ -32,8 +32,8 @@ namespace TechTalksMQProcessor
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings.{environment}.json", optional: false)
-                .AddEnvironmentVariables(); 
-                
+                .AddEnvironmentVariables();
+
             Configuration = builder.Build();
         }
 
