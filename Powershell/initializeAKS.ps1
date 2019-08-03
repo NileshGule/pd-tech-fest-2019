@@ -63,4 +63,14 @@ Write-Host "Initializing Helm with Tiller service account" -ForegroundColor Gree
 
 helm init --service-account tiller
 
+helm repo add kedacore https://kedacore.azureedge.net/helm
+
+helm repo update
+
+helm install kedacore/keda-edge `
+    --devel `
+    --set logLevel=debug `
+    --namespace keda `
+    --name keda
+
 Set-Location ~/projects/pd-tech-fest-2019/Powershell
