@@ -14,20 +14,24 @@ namespace TechTalksProcessor.Messaging
     public class TechTalksEventConsumer : ITechTalksEventConsumer
     {
         private const string exchangeName = "TechTalksExchange";
-        // private const string queueName = "hello";
+        private const string queueName = "hello";
         private const string routingKey = "hello";
 
         private static ManualResetEvent _ResetEvent = new ManualResetEvent(false);
 
-        private readonly TechTalksDBContext _context;
-        public TechTalksEventConsumer(TechTalksDBContext context)
+        public TechTalksEventConsumer()
         {
-            _context = context;
+            // _context = context;
         }
 
         public void ConsumeMessage()
         {
-            var factory = new ConnectionFactory() { HostName = "rabbitmq"};
+            var factory = new ConnectionFactory()
+            {
+                HostName = "rabbitmq",
+                UserName = "user",
+                Password = "PASSWORD"
+            };
 
             using (var connection = factory.CreateConnection())
             {
@@ -36,14 +40,17 @@ namespace TechTalksProcessor.Messaging
                 using (var channel = connection.CreateModel())
                 {
                     Console.WriteLine("Inside model");
-                    channel.ExchangeDeclare(exchangeName, "fanout");
-                    
-                    string queueName = channel.QueueDeclare().QueueName;
-                    
-                    channel.QueueBind(queueName, exchangeName, routingKey);
+
+                    channel.QueueDeclare(
+                        queue: queueName,
+                        durable: false,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null
+                    );
 
                     var consumer = new EventingBasicConsumer(channel);
-                  
+
                     consumer.Received += RabbitMQEventHandler;
 
                     channel.BasicConsume(queue: queueName,
@@ -51,7 +58,7 @@ namespace TechTalksProcessor.Messaging
                                         consumer: consumer);
 
                     Console.WriteLine($"Listening to events on {queueName}");
-                    
+
                     _ResetEvent.WaitOne();
                 }
             }
@@ -70,24 +77,26 @@ namespace TechTalksProcessor.Messaging
             Console.WriteLine($"Category : {techTalk.CategoryId}");
             Console.WriteLine($"Level : {techTalk.LevelId}");
 
-            try
-            {
-                Console.WriteLine(_context.Database.GetDbConnection().ConnectionString);
+            Thread.Sleep(10);
 
-                _context.TechTalk.Add(techTalk);
-                _context.Entry(techTalk.Category).State = EntityState.Unchanged;
-                _context.Entry(techTalk.Level).State = EntityState.Unchanged;
-                _context.SaveChanges();  
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Inside exception block");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.InnerException);
-            }
-            
+            // try
+            // {
+            //     Console.WriteLine(_context.Database.GetDbConnection().ConnectionString);
+
+            //     _context.TechTalk.Add(techTalk);
+            //     _context.Entry(techTalk.Category).State = EntityState.Unchanged;
+            //     _context.Entry(techTalk.Level).State = EntityState.Unchanged;
+            //     _context.SaveChanges();
+            // }
+            // catch (Exception ex)
+            // {
+            //     Console.WriteLine("Inside exception block");
+            //     Console.WriteLine(ex.Message);
+            //     Console.WriteLine(ex.InnerException);
+            // }
+
 
             Console.WriteLine("TechTalk persisted successfully");
         }
-    }    
+    }
 }

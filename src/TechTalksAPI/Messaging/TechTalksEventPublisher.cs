@@ -17,7 +17,12 @@ namespace TechTalksAPI.Messaging
         {
             Console.WriteLine("Inside send message");
 
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+            var factory = new ConnectionFactory()
+            {
+                HostName = "rabbitmq",
+                UserName = "user",
+                Password = "PASSWORD"
+            };
 
             Console.WriteLine("Inside connection factory");
 
@@ -47,7 +52,12 @@ namespace TechTalksAPI.Messaging
         {
             Console.WriteLine("Inside send message");
 
-            var factory = new ConnectionFactory() { HostName = "rabbitmq" };
+            var factory = new ConnectionFactory()
+            {
+                HostName = "rabbitmq",
+                UserName = "user",
+                Password = "PASSWORD"
+            };
 
             Console.WriteLine("Inside connection factory");
 
@@ -58,16 +68,26 @@ namespace TechTalksAPI.Messaging
                 using (var channel = connection.CreateModel())
                 {
                     Console.WriteLine("Inside model");
-                    channel.ExchangeDeclare(exchangeName, "fanout");
+
+                    channel.QueueDeclare(
+                        queue: queueName,
+                        durable: false,
+                        exclusive: false,
+                        autoDelete: false,
+                        arguments: null
+                    );
 
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(talk));
 
-                    channel.BasicPublish(exchange: exchangeName,
+                    for (int i = 0; i < 100; i++)
+                    {
+                        channel.BasicPublish(exchange: "",
                                         routingKey: routingKey,
                                         basicProperties: null,
                                         body: body);
 
-                    Console.WriteLine(" [x] Sent {0}", talk);
+                        Console.WriteLine($"{i} Sent {0}", talk);
+                    }
                 }
             }
         }
