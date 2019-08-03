@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  techtalks.api:
+    image: nileshgule/techtalksapi
+    build:
+      context: src
+      dockerfile: Dockerfile-TechTalksAPI
+
+  techtalks.processor:
+    image: nileshgule/techtalksconsumer
+    build:
+      context: src
+      dockerfile: Dockerfile-TechTalksMQConsumer

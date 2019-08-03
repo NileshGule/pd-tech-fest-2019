@@ -1,0 +1,52 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+
+metadata:
+  name: rabbitmq-consumer
+  # namespace: voxxed-days-2018sg
+  labels:
+    run: rabbitmq-consumer
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: rabbitmq-consumer
+
+  template:
+    metadata:
+      labels:
+        run: rabbitmq-consumer
+        app: rabbitmq-consumer
+    spec:
+      containers:
+      - name: rabbitmq-consumer
+        image: nileshgule/techtalksconsumer
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+
+---
+apiVersion: keda.k8s.io/v1alpha1
+kind: ScaledObject
+metadata:
+  name: rabbitmq-consumer
+  namespace: default
+  labels:
+    deploymentName: rabbitmq-consumer
+spec:
+  scaleTargetRef:
+    deploymentName: rabbitmq-consumer
+  pollingInterval: 5   # Optional. Default: 30 seconds
+  cooldownPeriod: 30   # Optional. Default: 300 seconds
+  maxReplicaCount: 30  # Optional. Default: 100
+  triggers:
+  - type: rabbitmq
+    metadata:
+      queueName: hello
+      host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
+      queueLength  : '5'

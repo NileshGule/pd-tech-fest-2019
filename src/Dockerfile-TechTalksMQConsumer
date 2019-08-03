@@ -2,16 +2,15 @@ FROM microsoft/aspnetcore-build AS build-env
 
 WORKDIR /app
 
-# COPY TechTalksMQConsumer /TechTalksMQConsumer/
-COPY . /TechTalksMQConsumer/
-COPY ./../TechTalksModel /TechTalksModel/
+COPY TechTalksMQConsumer /TechTalksMQConsumer/
+COPY TechTalksModel /TechTalksModel/
 
-COPY NuGet.config ./
+# COPY NuGet.config ./
 
 WORKDIR /TechTalksMQConsumer
 RUN dotnet restore
 
-COPY . ./
+#COPY . ./
 
 RUN dotnet publish --configuration Release --output releaseOutput --no-restore
 
