@@ -1,5 +1,6 @@
 using TechTalksModel;
 using TechTalksModel.DTO;
+using System.Collections.Generic;
 
 namespace TechTalksAPI.Messaging
 {
@@ -8,5 +9,7 @@ namespace TechTalksAPI.Messaging
         void SendMessage(TechTalkDTO talk);
 
         void SendMessage(TechTalk talk);
+
+        void SendMessages(List<TechTalk> talks);
     }
 }

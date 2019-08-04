@@ -21,7 +21,7 @@ namespace TechTalksProcessor.Messaging
 
         public TechTalksEventConsumer()
         {
-            // _context = context;
+
         }
 
         public void ConsumeMessage()
@@ -53,8 +53,6 @@ namespace TechTalksProcessor.Messaging
 
                     var consumer = new EventingBasicConsumer(channel);
 
-                    // consumer.Received += RabbitMQEventHandler;
-
                     consumer.Received += (TechTalksModel, ea) =>
                     {
 
@@ -64,18 +62,9 @@ namespace TechTalksProcessor.Messaging
                         var techTalk = JsonConvert.DeserializeObject<TechTalk>(message);
                         Console.WriteLine($"Received message {message}");
 
-                        Thread.Sleep(TimeSpan.FromMinutes(1).Minutes);
+                        Thread.Sleep(2 * 1000); //2 seconds sleep
 
-                        Console.WriteLine();
-                        Console.WriteLine("----------");
-                        Console.WriteLine($"Tech Talk Id : {techTalk.Id}");
-                        Console.WriteLine($"Tech Talk Name : {techTalk.TechTalkName}");
-                        Console.WriteLine($"Category : {techTalk.CategoryId}");
-                        Console.WriteLine($"Level : {techTalk.LevelId}");
-                        Console.WriteLine("----------");
-                        Console.WriteLine();
-
-                        Console.WriteLine($"TechTalk persisted successfully at {DateTime.Now.ToLongTimeString()}");
+                        LogTechTalkDetails(techTalk);
 
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 
@@ -91,6 +80,20 @@ namespace TechTalksProcessor.Messaging
                     _ResetEvent.WaitOne();
                 }
             }
+        }
+
+        private void LogTechTalkDetails(TechTalk techTalk)
+        {
+            Console.WriteLine();
+            Console.WriteLine("----------");
+            Console.WriteLine($"Tech Talk Id : {techTalk.Id}");
+            Console.WriteLine($"Tech Talk Name : {techTalk.TechTalkName}");
+            Console.WriteLine($"Category : {techTalk.CategoryId}");
+            Console.WriteLine($"Level : {techTalk.LevelId}");
+            Console.WriteLine("----------");
+            Console.WriteLine();
+
+            Console.WriteLine($"TechTalk persisted successfully at {DateTime.Now.ToLongTimeString()}");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using RabbitMQ.Client;
 using Newtonsoft.Json;
@@ -129,22 +130,23 @@ namespace TechTalksAPI.Messaging
                     var properties = channel.CreateBasicProperties();
                     properties.Persistent = true;
 
-                    talks.ForEach(talks =>
+                    List<byte[]> serializedTalks = new List<byte[]>();
+
+                    talks.ForEach(talk =>
                     {
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(talk));
-
-                        // for (int i = 0; i < 500; i++)
-                        // {
-                        channel.BasicPublish(exchange: "",
-                                        routingKey: routingKey,
-                                        basicProperties: properties,
-                                        body: body);
-
-                        Console.WriteLine($"{talk} published successfully");
-
+                        serializedTalks.Add(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(talk)));
                     });
-                    // Console.WriteLine($"{i} Sent {0}", talk);
-                    // }
+
+                    serializedTalks.ForEach(body =>
+                    {
+                        channel.BasicPublish(exchange: "",
+                                routingKey: routingKey,
+                                basicProperties: properties,
+                                body: body);
+
+                        Console.WriteLine($"{body} published to message queue");
+                    });
+
                 }
             }
         }
