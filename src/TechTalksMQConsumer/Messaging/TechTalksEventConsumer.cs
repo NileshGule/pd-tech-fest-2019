@@ -43,18 +43,47 @@ namespace TechTalksProcessor.Messaging
 
                     channel.QueueDeclare(
                         queue: queueName,
-                        durable: false,
+                        durable: true,
                         exclusive: false,
                         autoDelete: false,
                         arguments: null
                     );
 
+                    channel.BasicQos(prefetchSize: 0, prefetchCount: 10, global: false);
+
                     var consumer = new EventingBasicConsumer(channel);
 
-                    consumer.Received += RabbitMQEventHandler;
+                    // consumer.Received += RabbitMQEventHandler;
+
+                    consumer.Received += (TechTalksModel, ea) =>
+                    {
+
+                        Console.WriteLine("Inside RabbitMQ receiver...");
+                        var body = ea.Body;
+                        var message = Encoding.UTF8.GetString(body);
+                        var techTalk = JsonConvert.DeserializeObject<TechTalk>(message);
+                        Console.WriteLine($"Received message {message}");
+
+                        Console.WriteLine();
+                        Console.WriteLine("----------");
+                        Console.WriteLine($"Tech Talk Id : {techTalk.Id}");
+                        Console.WriteLine($"Tech Talk Name : {techTalk.TechTalkName}");
+                        Console.WriteLine($"Category : {techTalk.CategoryId}");
+                        Console.WriteLine($"Level : {techTalk.LevelId}");
+                        Console.WriteLine("----------");
+                        Console.WriteLine();
+
+                        Thread.Sleep(TimeSpan.FromSeconds(10).Seconds);
+
+                        Console.WriteLine($"TechTalk persisted successfully at {DateTime.Now.ToLongTimeString()}");
+
+                        channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
+
+
+                    };
 
                     channel.BasicConsume(queue: queueName,
-                                        autoAck: true,
+                                        autoAck: false,
                                         consumer: consumer);
 
                     Console.WriteLine($"Listening to events on {queueName}");
@@ -72,12 +101,15 @@ namespace TechTalksProcessor.Messaging
             var techTalk = JsonConvert.DeserializeObject<TechTalk>(message);
             Console.WriteLine($"Received message {message}");
 
+            Console.WriteLine("----------");
             Console.WriteLine($"Tech Talk Id : {techTalk.Id}");
             Console.WriteLine($"Tech Talk Name : {techTalk.TechTalkName}");
             Console.WriteLine($"Category : {techTalk.CategoryId}");
             Console.WriteLine($"Level : {techTalk.LevelId}");
+            Console.WriteLine("----------");
+            Console.WriteLine();
 
-            Thread.Sleep(10);
+            Thread.Sleep(TimeSpan.FromSeconds(10).Seconds);
 
             // try
             // {
@@ -96,7 +128,8 @@ namespace TechTalksProcessor.Messaging
             // }
 
 
-            Console.WriteLine("TechTalk persisted successfully");
+
+            Console.WriteLine($"TechTalk persisted successfully at {DateTime.Now.ToLongTimeString()}");
         }
     }
 }

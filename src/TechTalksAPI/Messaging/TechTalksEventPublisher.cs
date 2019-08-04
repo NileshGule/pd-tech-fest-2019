@@ -71,19 +71,22 @@ namespace TechTalksAPI.Messaging
 
                     channel.QueueDeclare(
                         queue: queueName,
-                        durable: false,
+                        durable: true,
                         exclusive: false,
                         autoDelete: false,
                         arguments: null
                     );
 
+                    var properties = channel.CreateBasicProperties();
+                    properties.Persistent = true;
+
                     var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(talk));
 
-                    for (int i = 0; i < 100; i++)
+                    for (int i = 0; i < 500; i++)
                     {
                         channel.BasicPublish(exchange: "",
                                         routingKey: routingKey,
-                                        basicProperties: null,
+                                        basicProperties: properties,
                                         body: body);
 
                         Console.WriteLine($"{i} Sent {0}", talk);
