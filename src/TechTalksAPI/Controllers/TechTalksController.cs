@@ -103,7 +103,9 @@ namespace TechTalksAPI.Controllers
 
             Console.WriteLine("Sending message to queue");
 
-            dummyTechTalks.ForEach(tt => _messageQueue.SendMessage(tt));
+            _messageQueue.SendMessages(dummyTechTalks);
+
+            // dummyTechTalks.ForEach(tt => _messageQueue.SendMessage(tt));
 
             // _messageQueue.SendMessage(techTalk);
 
