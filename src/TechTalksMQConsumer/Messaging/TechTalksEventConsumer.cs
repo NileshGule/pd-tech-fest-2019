@@ -49,25 +49,27 @@ namespace TechTalksProcessor.Messaging
                         arguments: null
                     );
 
+                    // Fetch 10 messages at a time to process
                     channel.BasicQos(prefetchSize: 0, prefetchCount: 10, global: false);
 
                     var consumer = new EventingBasicConsumer(channel);
 
                     consumer.Received += (TechTalksModel, ea) =>
                     {
-
                         Console.WriteLine("Inside RabbitMQ receiver...");
                         var body = ea.Body;
                         var message = Encoding.UTF8.GetString(body);
                         var techTalk = JsonConvert.DeserializeObject<TechTalk>(message);
                         Console.WriteLine($"Received message {message}");
 
-                        Thread.Sleep(2 * 1000); //2 seconds sleep
+                        //2 seconds sleep, to simulate heavy workload
+                        Thread.Sleep(2 * 1000);
 
                         LogTechTalkDetails(techTalk);
 
                         channel.BasicAck(deliveryTag: ea.DeliveryTag, multiple: false);
 
+                        Console.WriteLine($"Finished processing : {message}");
 
                     };
 

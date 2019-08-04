@@ -26,17 +26,10 @@ namespace TechTalksAPI.Controllers
         [HttpGet]
         public IEnumerable<TechTalk> GetAll()
         {
-            // List<TechTalk> techTalks = _context.TechTalk
-            //     .Include(t => t.Category)
-            //     .Include(t => t.Level)
-            //     .ToList();
-
             List<TechTalk> techTalks = new List<TechTalk>();
 
             return techTalks;
-
         }
-
 
         // POST api/TechTalks
         [HttpPost]
@@ -60,30 +53,7 @@ namespace TechTalksAPI.Controllers
                 "Community event organized via Eventribe"
             };
 
-            Category dummyCategory = new Category
-            {
-                Id = fakeDataCreator.Random.Number(1, 5),
-                CategoryName = fakeDataCreator.PickRandom(categoryNames),
-                Description = fakeDataCreator.PickRandom(categoryDescriptions)
-            };
-
-            Level dummyLevel = new Level
-            {
-                Id = fakeDataCreator.Random.Number(1, 4),
-                LevelName = techTalkDto.LevelName
-            };
-
-            // TechTalk techTalk = new TechTalk
-            // {
-            //     Id = techTalkDto.Id,
-            //     TechTalkName = techTalkDto.TechTalkName,
-            //     CategoryId = techTalkDto.CategoryId,
-            //     // Category = _context.Categories.FirstOrDefault(x => x.Id == techTalkDto.CategoryId),
-            //     Category = dummyCategory,
-            //     LevelId = techTalkDto.LevelId,
-            //     // Level = _context.Levels.FirstOrDefault(x => x.Id == techTalkDto.LevelId)
-            //     Level = dummyLevel
-            // };
+            var levelNames = new List<string>() { "100 - Beginer", "200 - Intermediate", "300 - Advanced", "400 - Expert" };
 
             var techTalks = new Faker<TechTalk>()
             .StrictMode(true)
@@ -97,17 +67,17 @@ namespace TechTalksAPI.Controllers
                 Description = fakeDataCreator.PickRandom(categoryDescriptions)
             })
             .RuleFor(t => t.LevelId, f => f.Random.Number(1, 4))
-            .RuleFor(t => t.Level, dummyLevel);
+            .RuleFor(t => t.Level, new Level
+            {
+                Id = fakeDataCreator.Random.Number(1, 4),
+                LevelName = fakeDataCreator.PickRandom(levelNames)
+            });
 
             var dummyTechTalks = techTalks.Generate(1000);
 
-            Console.WriteLine("Sending message to queue");
+            Console.WriteLine("Sending messages to queue");
 
             _messageQueue.SendMessages(dummyTechTalks);
-
-            // dummyTechTalks.ForEach(tt => _messageQueue.SendMessage(tt));
-
-            // _messageQueue.SendMessage(techTalk);
 
             return Ok();
         }

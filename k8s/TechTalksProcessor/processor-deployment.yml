@@ -3,7 +3,6 @@ kind: Deployment
 
 metadata:
   name: rabbitmq-consumer
-  # namespace: voxxed-days-2018sg
   labels:
     run: rabbitmq-consumer
 
