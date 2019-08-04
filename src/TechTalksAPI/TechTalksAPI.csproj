@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <!-- <PackageReference Include="Microsoft.ENtityFrameworkCore.SqlServer" Version="2.1.0" /> -->
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
+    <PackageReference Include="Bogus" Version="28.0.2"/>
   </ItemGroup>
 
   <ItemGroup>

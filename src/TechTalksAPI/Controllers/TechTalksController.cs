@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using TechTalksModel.DTO;
 using TechTalksAPI.Messaging;
 using TechTalksModel;
+using Bogus;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,32 +47,65 @@ namespace TechTalksAPI.Controllers
                 return BadRequest();
             }
 
+            var fakeDataCreator = new Faker();
+
+            var categoryNames = new List<string>() { "Meetup", "Free Conference", "Paid Conference", "Hackathon", "EventTribe" };
+
+            var categoryDescriptions = new List<string>()
+            {
+                "Community event organized via meetup",
+                "Free Tech Conference",
+                "Paid Tech Conference",
+                "Hackathon",
+                "Community event organized via Eventribe"
+            };
+
             Category dummyCategory = new Category
             {
-                Id = techTalkDto.CategoryId,
-                CategoryName = "Paid Event",
-                Description = "Paid Event"
+                Id = fakeDataCreator.Random.Number(1, 5),
+                CategoryName = fakeDataCreator.PickRandom(categoryNames),
+                Description = fakeDataCreator.PickRandom(categoryDescriptions)
             };
 
             Level dummyLevel = new Level
             {
-                Id = techTalkDto.LevelId,
+                Id = fakeDataCreator.Random.Number(1, 4),
                 LevelName = techTalkDto.LevelName
             };
 
-            TechTalk techTalk = new TechTalk
+            // TechTalk techTalk = new TechTalk
+            // {
+            //     Id = techTalkDto.Id,
+            //     TechTalkName = techTalkDto.TechTalkName,
+            //     CategoryId = techTalkDto.CategoryId,
+            //     // Category = _context.Categories.FirstOrDefault(x => x.Id == techTalkDto.CategoryId),
+            //     Category = dummyCategory,
+            //     LevelId = techTalkDto.LevelId,
+            //     // Level = _context.Levels.FirstOrDefault(x => x.Id == techTalkDto.LevelId)
+            //     Level = dummyLevel
+            // };
+
+            var techTalks = new Faker<TechTalk>()
+            .StrictMode(true)
+            .RuleFor(t => t.Id, f => f.Random.Number(1, 1000))
+            .RuleFor(t => t.TechTalkName, f => f.Lorem.Word())
+            .RuleFor(t => t.CategoryId, f => f.Random.Number(1, 5))
+            .RuleFor(t => t.Category, new Category
             {
-                TechTalkName = techTalkDto.TechTalkName,
-                CategoryId = techTalkDto.CategoryId,
-                // Category = _context.Categories.FirstOrDefault(x => x.Id == techTalkDto.CategoryId),
-                Category = dummyCategory,
-                LevelId = techTalkDto.LevelId,
-                // Level = _context.Levels.FirstOrDefault(x => x.Id == techTalkDto.LevelId)
-                Level = dummyLevel
-            };
+                Id = fakeDataCreator.Random.Number(1, 5),
+                CategoryName = fakeDataCreator.PickRandom(categoryNames),
+                Description = fakeDataCreator.PickRandom(categoryDescriptions)
+            })
+            .RuleFor(t => t.LevelId, f => f.Random.Number(1, 4))
+            .RuleFor(t => t.Level, dummyLevel);
+
+            var dummyTechTalks = techTalks.Generate(1000);
 
             Console.WriteLine("Sending message to queue");
-            _messageQueue.SendMessage(techTalk);
+
+            dummyTechTalks.ForEach(tt => _messageQueue.SendMessage(tt));
+
+            // _messageQueue.SendMessage(techTalk);
 
             return Ok();
         }
