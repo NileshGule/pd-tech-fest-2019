@@ -28,25 +28,3 @@ spec:
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
-
----
-apiVersion: keda.k8s.io/v1alpha1
-kind: ScaledObject
-metadata:
-  name: rabbitmq-consumer
-  namespace: default
-  labels:
-    deploymentName: rabbitmq-consumer
-spec:
-  scaleTargetRef:
-    deploymentName: rabbitmq-consumer
-  pollingInterval: 5   # Optional. Default: 30 seconds
-  cooldownPeriod: 30   # Optional. Default: 300 seconds
-  minReplicaCount: 1
-  maxReplicaCount: 30  # Optional. Default: 100
-  triggers:
-  - type: rabbitmq
-    metadata:
-      queueName: hello
-      host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
-      queueLength  : '5'

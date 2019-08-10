@@ -73,6 +73,7 @@ namespace TechTalksAPI.Controllers
                 LevelName = fakeDataCreator.PickRandom(levelNames)
             });
 
+            // generate 1000 dummy TechTalks
             var dummyTechTalks = techTalks.Generate(1000);
 
             Console.WriteLine("Sending messages to queue");
