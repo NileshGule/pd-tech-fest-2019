@@ -2,6 +2,28 @@
 
 Demo code for [Programmers Developers Tech Fest 2019](https://www.eventbrite.com/e/pd-techfest-tickets-62965805419)
 
+There are multiple options for scaling with Kubernetes and containers in general. This demo uses Kubernetes-based Event Driven Autoscaling (KEDA). RabbitMQ is used as an event source.
+
+## Code organization
+
+- [src](src)
+
+Contains the source code for a model classes for a hypothetical Tech Talks management application. `TechTalksAPI` contains the code for generating the events / messages which are published to a RabbitMQ queue. `TechTalksMQConsumer` contains the consumer code for processing RabbitMQ messages.
+
+Both the Producer and Consumer uses the common data model. In order to build these using Dockerfile, we define the [TechTalksAPI](/src/Dockerfile-TechTalksAPI) and [TechTalksMQConsumer](/src/Dockerfile-TechTalksMQConsumer). These are built [docker-compose-build](/src/docker-compose-build.yml) file.
+
+- [Powershell](Powersehll)
+
+Contains the helper Poweshell scripts to provision AKS cluster, to proxy into the Kubernetes control plane, to delete the resource group, to deploy the application and also to delete the application.
+
+- [k8s](k8s)
+
+Contains Kubernetes manifest files for deploying the Producer and Consumer components to the Kubernetes cluster.
+
+- [heml](helm)
+
+Contains the Helm RBAC enabling yaml file which add the Cluster Role Binding for RBAC enabled Kubernetes cluster.
+
 ## Demo setup
 
 ### Initialize AKS cluster with KEDA
