@@ -36,7 +36,15 @@ Run initializeAKS powershell script with default values from Powershell director
 
 ```
 
-Query Kubernetes resources deployed by KEDA
+Note: The default options can be overwritten by passing arguments to the initializeAKS script. In the below example, we are overriding the number of nodes in the AKS cluster to 4 instead of 3.
+
+```powershell
+
+.initilaizeAKS -workerNodeCount 4
+
+```
+
+Verify KEDA is installed correctly on the Kubernetes cluster.
 
 ```code
 
