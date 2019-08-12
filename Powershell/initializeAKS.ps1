@@ -75,7 +75,4 @@ helm install kedacore/keda-edge `
     --namespace keda `
     --name keda
 
-# TO DO
-# Add step for installing RabbitMQ using Helm
-
 Set-Location ~/projects/pd-tech-fest-2019/Powershell

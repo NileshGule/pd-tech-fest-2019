@@ -28,7 +28,7 @@ Contains the Helm RBAC enabling yaml file which add the Cluster Role Binding for
 
 ### Initialize AKS cluster with KEDA
 
-Run initializeAKS powershell script with default values from Powershell directory
+Run [initializeAKS](/Powershell/initializeAKS.ps1) powershell script with default values from Powershell directory
 
 ```powershell
 
@@ -36,11 +36,13 @@ Run initializeAKS powershell script with default values from Powershell director
 
 ```
 
-Note: The default options can be overwritten by passing arguments to the initializeAKS script. In the below example, we are overriding the number of nodes in the AKS cluster to 4 instead of 3.
+Note: The default options can be overwritten by passing arguments to the initializeAKS script. In the below example, we are overriding the number of nodes in the AKS cluster to 4 instead of 3 and resource group name as `kedaresgrp`.
 
 ```powershell
 
-.initilaizeAKS -workerNodeCount 4
+.initilaizeAKS `
+-workerNodeCount 4 `
+-resourceGroupName "kedaresgrp"
 
 ```
 
@@ -61,6 +63,14 @@ helm install --name rabbitmq --set rabbitmq.username=user,rabbitmq.password=PASS
 ```
 
 ### Deploy RabbitMQ Producer & Consumers
+
+Execute the `deployTechTalks-AKS.ps1` powershell script.
+
+```powershell
+
+.\deployTechTalks-AKS.ps1
+
+```
 
 Run the kubectl apply recursively on k8s directory
 
