@@ -114,8 +114,8 @@ Here are the links to slides from the presentation
 
 Slideshare
 
-[![Scaling containers with KEDA](/images/slideshare.png)](https://https://www.slideshare.net/nileshgule/scaling-containers-with-keda)
+[![Scaling containers with KEDA](/images/slideshare.PNG)](https://www.slideshare.net/nileshgule/scaling-containers-with-keda)
 
 Speakerdeck
 
-[![Scaling containers with KEDA](/images/speakerdeck.png)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
+[![Scaling containers with KEDA](/images/speakerdeck.PNG)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
