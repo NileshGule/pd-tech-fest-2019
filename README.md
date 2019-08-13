@@ -103,9 +103,9 @@ As we can see above, RabbitMQ service is available within the Kubernetes cluster
 Also note the public `LoadBalancer` IP for the techtalksapi service. In this case the IP is **`13.67.52.226`**.
 **Note:** This IP will be different when the services are redeployed on a different Kubernetes cluster.
 
-### Watch for deployments
+### 2.5 Watch for deployments
 
-The rabbitmq ScaledObject will be deployed as part of the deployment. Watch out for the deployments to see the changes in the scaling as the number of messages increases
+The rabbitmq `ScaledObject` will be deployed as part of the deployment. Watch out for the deployments to see the changes in the scaling as the number of messages increases
 
 ```code
 
@@ -115,7 +115,13 @@ kubectl get deploy -w
 
 ```
 
-Port forward for RabbitMQ management UI
+![List of all Kubernetes services](/images/initial-deploy-state.png)
+
+Initially there is 1 instance of rabbitmq-consumer and 2 replicas of the techtalksapi (producer) deployed in the cluster.
+
+### 2.6 Port forward for RabbitMQ management UI
+
+We will use port forwarding approach to access the RabbitMQ management UI.
 
 ```code
 
@@ -123,9 +129,41 @@ kubectl port-forward svc/rabbitmq 15672:15672
 
 ```
 
-Browse RabbitMQ Management UI
+### 2.7 Browse RabbitMQ Management UI
 
 http://localhost:15672/
+
+Login to the management UI using credentials as `user` and `PASSWORD`. Remember that these were set duing the installation of RabbitMQ services using Helm. If you are using any other user, please update the username and password accordingly.
+
+### 2.8 Generate load using `Postman`
+
+I am using Postman to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`
+
+Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a post request to the API. http://13.67.52.226:8080/api/TechTalks/
+
+Make sure to set the method to `POST` and add the header with key as `Content-Type` and value as `application/json`. Also specify the body witha random integer as shown below.
+
+![postman header](/images/postman-header.png)
+
+![postman body](/images/postman-body.png)
+
+After building the POST query, hit the blue `Send` button on the top right. If everything goes fine, you should receive a `200 OK` as status code.
+
+![postman success](/images/postman-success.png)
+
+### 2.9 Auto-scaling in action
+
+See the number of containers for consumer grow to adjust the messages and also the drop when messages are processed.
+
+![autoscaling consumers](/images/autoscaling.png)
+
+While the messages are being processed, we can also observe the RabbitMQ management UI.
+
+![autoscaling consumers](/images/RabbitMQ-managementUI.PNG)
+
+Our consumer processes 10 messages in a batch by prefetching them together. This can be verified by looking at the details of the consumers.
+
+![Prefetch messages](/images/rabbitMQ-prefetch.PNG)
 
 List Custom Resource Definition
 
@@ -135,12 +173,16 @@ kubeclt get crd
 
 ```
 
+---
+
+## Slides
+
 Here are the links to slides from the presentation
 
-Slideshare
+### Slideshare
 
 [![Scaling containers with KEDA](/images/slideshare.PNG)](https://www.slideshare.net/nileshgule/scaling-containers-with-keda)
 
-Speakerdeck
+### Speakerdeck
 
-[![Scaling containers with KEDA](/images/speakerdeck.PNG){:height="100px" width="100px"}](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
+[![Scaling containers with KEDA](/images/speakerdeck.PNG)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
