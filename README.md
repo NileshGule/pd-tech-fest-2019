@@ -137,7 +137,7 @@ Login to the management UI using credentials as `user` and `PASSWORD`. Remember 
 
 ### 2.8 Generate load using `Postman`
 
-I am using Postman to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`
+I am using [Postman](https://www.getpostman.com/) to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`. You can use any other command line tool like CURL to submit a POST request.
 
 Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a post request to the API. http://13.67.52.226:8080/api/TechTalks/
 
