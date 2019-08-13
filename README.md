@@ -2,7 +2,9 @@
 
 Demo code for [Programmers Developers Tech Fest 2019](https://www.eventbrite.com/e/pd-techfest-tickets-62965805419)
 
-There are multiple options for scaling with Kubernetes and containers in general. This demo uses Kubernetes-based Event Driven Autoscaling (KEDA). RabbitMQ is used as an event source.
+[![Scaling containers with KEDA](/images/pd-tech-fest.png)](https://www.eventbrite.com/e/pd-techfest-tickets-62965805419)
+
+There are multiple options for scaling with Kubernetes and containers in general. This demo uses `Kubernetes-based Event Driven Autoscaling (KEDA)`. RabbitMQ is used as an event source.
 
 ## Code organization
 
@@ -118,4 +120,4 @@ Slideshare
 
 Speakerdeck
 
-[![Scaling containers with KEDA](/images/speakerdeck.PNG)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
+[![Scaling containers with KEDA](/images/speakerdeck.PNG){:height="100px" width="100px"}](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
