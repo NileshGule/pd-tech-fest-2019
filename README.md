@@ -6,6 +6,17 @@ Demo code for [Programmers Developers Tech Fest 2019](https://www.eventbrite.com
 
 There are multiple options for scaling with Kubernetes and containers in general. This demo uses `Kubernetes-based Event Driven Autoscaling (KEDA)`. RabbitMQ is used as an event source.
 
+## Prerequisites
+
+- Azure Susbscription to create AKS cluster
+- kubectl logged into kubernetes cluster
+- Powershell
+- Postman
+
+If you wish to use Kubernetes cluster apart from AKS, you can skip the `Step 2.1` of provisioning the cluster and [install KEDA](https://github.com/kedacore/keda#setup) on your own kubernetes cluster.
+
+Similarly, if you do not wish to execute the Powershell scripts, you can execute teh commands which are part of those scripts manually.
+
 ## 1 - Code organization
 
 - [src](src)
@@ -98,7 +109,7 @@ kubectl get svc
 
 ![List of all Kubernetes services](/images/all-services.png)
 
-As we can see above, RabbitMQ service is available within the Kubernetes cluster and it exposes 4369, 5672, 25672 and 15672 ports. We will be using 15672 port to map to a local port.
+As we can see above, RabbitMQ service is available within the Kubernetes cluster and it exposes `4369`, `5672`, `25672` and `15672` ports. We will be using `15672` port to map to a local port.
 
 Also note the public `LoadBalancer` IP for the techtalksapi service. In this case the IP is **`13.67.52.226`**.
 **Note:** This IP will be different when the services are redeployed on a different Kubernetes cluster.
@@ -141,7 +152,7 @@ I am using [Postman](https://www.getpostman.com/) to submit a POST request to th
 
 Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a post request to the API. http://13.67.52.226:8080/api/TechTalks/
 
-Make sure to set the method to `POST` and add the header with key as `Content-Type` and value as `application/json`. Also specify the body witha random integer as shown below.
+Make sure to set the method to `POST` and add the header with key as `Content-Type` and value as `application/json`. Also specify the body with a random integer as shown below.
 
 ![postman header](/images/postman-header.png)
 
@@ -150,6 +161,8 @@ Make sure to set the method to `POST` and add the header with key as `Content-Ty
 After building the POST query, hit the blue `Send` button on the top right. If everything goes fine, you should receive a `200 OK` as status code.
 
 ![postman success](/images/postman-success.png)
+
+The Producer will produce 1000 messages on the queue named `hello`. The consumer is configured to process `10` messages in a batch. The consumer also simulates a long running process by sleeping for `2 seconds`.
 
 ### 2.9 Auto-scaling in action
 
