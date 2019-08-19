@@ -1,6 +1,6 @@
 Param(
-    [parameter(Mandatory=$false)]
-    [string]$resourceGroupName="aksP4ResourceGroup"
+    [parameter(Mandatory = $false)]
+    [string]$resourceGroupName = "aazureaugustUGRG"
 )
 
 # Delete AKS cluster

@@ -2,13 +2,13 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "aksP4ResourceGroup",
+    [string]$resourceGroupName = "aazureaugustUGRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
     [string]$clusterName = "aksCluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 3,
+    [int16]$workerNodeCount = 2,
     [parameter(Mandatory = $false)]
     [string]$kubernetesVersion = "1.11.2"
 
@@ -66,6 +66,11 @@ helm init --service-account tiller
 helm repo add kedacore https://kedacore.azureedge.net/helm
 
 helm repo update
+
+# Wait for 30 seconds for the tiller service to be available in the cluster
+# If tiller is not available, Keda installation fails
+# In case of Keda failure, the helm install command given below can be executed manually
+Start-Sleep -Seconds 30
 
 Write-Host "Initializing KEDA on AKS cluster $clusterName" -ForegroundColor Green
 
