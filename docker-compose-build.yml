@@ -1,15 +1,14 @@
-version: '3'
+version: "3"
 
 services:
-
   techtalks.api:
-    image: nileshgule/techtalksapi
+    image: nileshgule/techtalksapi:rabbitmq-keda
     build:
       context: src
       dockerfile: Dockerfile-TechTalksAPI
 
   techtalks.processor:
-    image: nileshgule/techtalksconsumer
+    image: nileshgule/techtalksconsumer:rabbitmq-keda
     build:
       context: src
       dockerfile: Dockerfile-TechTalksMQConsumer

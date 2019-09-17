@@ -19,15 +19,15 @@ spec:
         run: techtalksapi
     spec:
       containers:
-      - name: techtalksapi
-        image: nileshgule/techtalksapi
-        env:
-          - name: ASPNETCORE_URLS
-            value: http://0.0.0.0:8080
-        ports:
-        - containerPort: 8080
-          protocol: TCP
-        imagePullPolicy: Always
+        - name: techtalksapi
+          image: nileshgule/techtalksapi:rabbitmq-keda
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://0.0.0.0:8080
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
