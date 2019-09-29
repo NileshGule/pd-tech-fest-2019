@@ -2,12 +2,12 @@
 
 ## Prerequisites
 - A Kubernetes cluster such as microk8s .
-- Download skaffold
+- Download [skaffold](https://github.com/GoogleContainerTools/skaffold/releases) cli
 - helm
 - kubectl
   
 
-### Installing the Keda controller
+### Install the Keda controller
 
 Use helm to install the Keda Controller
 
@@ -23,18 +23,21 @@ helm install kedacore/keda-edge `
     --name keda
 ```    
 
-### Creating a secret for Kaniko use.
+### Create secret for Kaniko use.
 
-Kaniko will pull and push from a Docker registry.
-If you already have a docker config, you can easily create the kaniko secret.
+Kaniko will pull and push from a Docker registry.  If you already have a docker config, you can easily create the kaniko secret.
 
 Example
-`kubectl -n keda-app create secret generic regcred --from-file=/home/your user/.docker/config.json`
+
+`kubectl create secret generic regcred --from-file=/home/your user/.docker/config.json`
 
 ### Build and deploy the application 
 
 Examine the `skaffold.yaml` at the root of the project.
 Change the image name according to your registry.
+
+You dont need to specify the tag, skaffold will create a tag base on git hash.
+
 
 ```
 apiVersion: skaffold/v1beta15
