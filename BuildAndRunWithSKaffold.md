@@ -94,3 +94,6 @@ To build and run the consumer:
 
 `skaffold run -p techtalksconsumer`
 
+
+For more information on [Skaffold](https://skaffold.dev/docs/) and [Kaniko](https://github.com/GoogleContainerTools/kaniko)
+
