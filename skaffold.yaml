@@ -1,0 +1,42 @@
+apiVersion: skaffold/v1beta15
+kind: Config
+profiles:
+- name: techtalksproducer
+  build:
+    artifacts:
+    - image: balchu/techtalksproducer
+      context: src
+      kaniko:
+        dockerfile: Dockerfile-TechTalksAPI
+        buildContext:
+          localDir: {}
+    cluster:
+      dockerConfig: 
+        secretName: regcred
+      namespace: default
+    insecureRegistries: #Use this for local registry.  such as microk8s registry.
+    - 10.152.183.39:5000
+  deploy:
+    kubectl:
+      manifests:
+        - k8s/TechTalksProducer/*.yml
+
+- name: techtalksconsumer
+  build:
+    artifacts:
+    - image: balchu/techtalksconsumer
+      context: src
+      kaniko:
+        dockerfile: Dockerfile-TechTalksMQConsumer
+        buildContext:
+          localDir: {}
+    cluster:
+      dockerConfig: 
+        secretName: regcred
+      namespace: default
+    insecureRegistries: #Use this for local registry.  such as microk8s registry.
+    - 10.152.183.39:5000
+  deploy:
+    kubectl:
+      manifests:
+        - k8s/TechTalksConsumer/*.yml
