@@ -33,7 +33,7 @@ Contains the helper Poweshell scripts to provision AKS cluster, to proxy into th
 
 Contains Kubernetes manifest files for deploying the Producer and Consumer components to the Kubernetes cluster.
 
-- [heml](helm)
+- [helm](helm)
 
 Contains the Helm RBAC enabling yaml file which add the Cluster Role Binding for RBAC enabled Kubernetes cluster.
 
