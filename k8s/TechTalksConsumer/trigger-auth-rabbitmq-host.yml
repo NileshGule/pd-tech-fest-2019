@@ -4,6 +4,6 @@ metadata:
   name: trigger-auth-rabbitmq-host
 spec:
   secretTargetRef:
-  - parameter: connection
-    name: host
+  - parameter: host
+    name: secrets-rabbitmq-host-connection
     key: rabbitmq-connectionstring
