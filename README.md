@@ -37,7 +37,7 @@ Once the images are built successfully, we can push them to the DockerHub reistr
 
 ```powershell
 
-docker-compose -f docker-compose-build.ym push
+docker-compose -f docker-compose-build.yml push
 
 ```
 
@@ -94,6 +94,13 @@ helm install --name rabbitmq --set rabbitmq.username=user,rabbitmq.password=PASS
 ```
 
 ### 2.3 Deploy RabbitMQ Producer & Consumers
+
+Generate Base 64 string for RabbitMQ connection
+
+#get base64 password
+
+$rabbitMQhost  = [System.Text.Encoding]::UTF8.GetBytes("amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672")
+[System.Convert]::ToBase64String($rabbitMQhost)
 
 Execute the `deployTechTalks-AKS.ps1` powershell script.
 
