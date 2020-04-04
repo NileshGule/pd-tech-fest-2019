@@ -25,6 +25,22 @@ Contains the source code for a model classes for a hypothetical Tech Talks manag
 
 Both the Producer and Consumer uses the common data model. In order to build these using Dockerfile, we define the [TechTalksAPI](/src/Dockerfile-TechTalksAPI) and [TechTalksMQConsumer](/src/Dockerfile-TechTalksMQConsumer). These are built [docker-compose-build](/src/docker-compose-build.yml) file.
 
+The docker images can be built using the following command
+
+```powershell
+
+docker-compose -f docker-compose-build.yml build
+
+```
+
+Once the images are built successfully, we can push them to the DockerHub reistry using the command
+
+```powershell
+
+docker-compose -f docker-compose-build.ym push
+
+```
+
 - [Powershell](Powersehll)
 
 Contains the helper Poweshell scripts to provision AKS cluster, to proxy into the Kubernetes control plane, to delete the resource group, to deploy the application and also to delete the application.
