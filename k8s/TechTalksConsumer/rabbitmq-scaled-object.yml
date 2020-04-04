@@ -17,5 +17,9 @@ spec:
   - type: rabbitmq
     metadata:
       queueName: hello
-      host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
+      # host: 'amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672'
+      # host: 'amqp://user:PASSWORD@rabbitmq:5672'
+      host: rabbitmq-connectionstring
       queueLength  : '5'
+    # authenticationRef:
+    #   name: trigger-auth-rabbitmq-host

@@ -24,6 +24,9 @@ spec:
         env:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
+        envFrom:
+        - secretRef:
+            name: secrets-rabbitmq-host-connection
         imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

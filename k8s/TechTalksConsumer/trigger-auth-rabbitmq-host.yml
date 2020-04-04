@@ -1,0 +1,9 @@
+apiVersion: keda.k8s.io/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: trigger-auth-rabbitmq-host
+spec:
+  secretTargetRef:
+  - parameter: connection
+    name: host
+    key: rabbitmq-connectionstring
