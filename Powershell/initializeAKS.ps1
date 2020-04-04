@@ -2,7 +2,7 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "techTalksRG",
+    [string]$resourceGroupName = "demo-kedaSeriesRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
@@ -50,7 +50,7 @@ kubectl create clusterrolebinding kubernetes-dashboard `
     --clusterrole=cluster-admin `
     --serviceaccount=kube-system:kubernetes-dashboard
 
-Write-Host "Creating Tiller service account for Helm" -ForegroundColor Green
+# Write-Host "Creating Tiller service account for Helm" -ForegroundColor Green
 
 # source common variables
 . .\var.ps1
@@ -59,11 +59,13 @@ Set-Location $helmRootDirectory
 
 kubectl apply -f .\helm-rbac.yaml
 
-Write-Host "Initializing Helm with Tiller service account" -ForegroundColor Green
+#helm init is no longer required with Helm v3 onwards
+# Write-Host "Initializing Helm with Tiller service account" -ForegroundColor Green
 
-helm init --service-account tiller
+# helm init --service-account tiller
 
-helm repo add kedacore https://kedacore.azureedge.net/helm
+# helm repo add kedacore https://kedacore.azureedge.net/helm
+helm repo add kedacore https://kedacore.github.io/charts
 
 helm repo update
 
@@ -74,10 +76,16 @@ Start-Sleep -Seconds 30
 
 Write-Host "Initializing KEDA on AKS cluster $clusterName" -ForegroundColor Green
 
-helm install kedacore/keda-edge `
-    --devel `
-    --set logLevel=debug `
-    --namespace keda `
-    --name keda
+kubectl create namespace keda
+
+helm install keda `
+    kedacore/keda `
+    --namespace keda
+
+# helm install kedacore/keda-edge `
+#     --devel `
+#     --set logLevel=debug `
+#     --namespace keda `
+#     --name keda
 
 Set-Location ~/projects/pd-tech-fest-2019/Powershell
