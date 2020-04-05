@@ -41,7 +41,7 @@ az aks get-credentials `
     --resource-group=$resourceGroupName `
     --name=$clusterName
 
-Write-Host "Successfully created cluster $clusterName with kubernetes version $kubernetesVersion and $workerNodeCount node(s)" -ForegroundColor Green
+Write-Host "Successfully created cluster $clusterName with $workerNodeCount node(s)" -ForegroundColor Green
 
 Write-Host "Creating cluster role binding for Kubernetes dashboard" -ForegroundColor Green
 
