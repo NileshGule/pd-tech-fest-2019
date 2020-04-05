@@ -111,3 +111,13 @@ $postParams = @{
 Invoke-WebRequest -Uri http://104.215.188.111:8080/api/TechTalks -Method POST -ContentType "application/json" -Body $postParams
 
 ```
+
+To Access the RabbitMQ AMQP port:
+
+    kubectl port-forward --namespace default svc/rabbitmq 5672:5672
+    echo "URL : amqp://127.0.0.1:5672/"
+
+To Access the RabbitMQ Management interface:
+
+    kubectl port-forward --namespace default svc/rabbitmq 15672:15672
+    echo "URL : http://127.0.0.1:15672/"
