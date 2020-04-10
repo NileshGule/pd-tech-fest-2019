@@ -24,6 +24,12 @@ spec:
           env:
             - name: ASPNETCORE_URLS
               value: http://0.0.0.0:8080
+            - name: RABBITMQ_HOST_NAME
+              value: "rabbitmq"
+            - name: RABBITMQ_USER_NAME
+              value: "user"
+            - name: RABBITMQ_PASSWORD
+              value: "PASSWORD"
           ports:
             - containerPort: 8080
               protocol: TCP

@@ -17,8 +17,9 @@ namespace TechTalksProcessor.Messaging
 
         private readonly string rabbitMQHostName;
         private readonly string rabbitMQUserName;
-
         private readonly string rabbitMQPassword;
+
+        private readonly ushort rabbitMQBatchSize;
 
         private static ManualResetEvent _ResetEvent = new ManualResetEvent(false);
 
@@ -27,6 +28,7 @@ namespace TechTalksProcessor.Messaging
             rabbitMQHostName = config.GetValue<string>("RABBITMQ_HOST_NAME");
             rabbitMQUserName = config.GetValue<string>("RABBITMQ_USER_NAME");
             rabbitMQPassword = config.GetValue<string>("RABBITMQ_PASSWORD");
+            rabbitMQBatchSize = config.GetValue<ushort>("RABBITMQ_BATCH_SIZE");
         }
 
         public void ConsumeMessage()
@@ -54,8 +56,8 @@ namespace TechTalksProcessor.Messaging
                         arguments: null
                     );
 
-                    // Fetch 10 messages at a time to process
-                    channel.BasicQos(prefetchSize: 0, prefetchCount: 10, global: false);
+                    // Fetch messages as per the BatchSize configuration at a time to process
+                    channel.BasicQos(prefetchSize: 0, prefetchCount: rabbitMQBatchSize, global: false);
 
                     var consumer = new EventingBasicConsumer(channel);
 

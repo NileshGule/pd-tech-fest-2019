@@ -30,6 +30,8 @@ spec:
               value: "user"
             - name: RABBITMQ_PASSWORD
               value: "PASSWORD"
+            - name: RABBITMQ_BATCH_SIZE
+              value : "20"
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

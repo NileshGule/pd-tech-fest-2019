@@ -24,7 +24,7 @@ namespace TechTalksAPI
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.Configure<TechTalksEventPublisher>(Configuration);
+            services.AddSingleton<IConfiguration>(provider => Configuration);
 
             services.AddTransient<ITechTalksEventPublisher, TechTalksEventPublisher>();
         }
