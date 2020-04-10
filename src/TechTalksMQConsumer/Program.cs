@@ -35,6 +35,7 @@ namespace TechTalksMQProcessor
                 .AddEnvironmentVariables();
 
             Configuration = builder.Build();
+
         }
 
         static ServiceProvider ConfigureServices()
@@ -42,8 +43,9 @@ namespace TechTalksMQProcessor
             var services = new ServiceCollection();
             services.AddOptions();
 
-            services.AddSingleton<ITechTalksEventConsumer, TechTalksEventConsumer>();
+            services.AddSingleton<IConfiguration>(provider => Configuration);
 
+            services.AddSingleton<ITechTalksEventConsumer, TechTalksEventConsumer>();
 
             return services.BuildServiceProvider();
         }
