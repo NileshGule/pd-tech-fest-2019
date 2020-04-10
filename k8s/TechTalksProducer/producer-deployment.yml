@@ -2,25 +2,25 @@ apiVersion: apps/v1
 kind: Deployment
 
 metadata:
-  name: techtalksapi
+  name: rabbitmq-producer-deployment
   # namespace: voxxed-days-2018sg
   labels:
-    run: techtalksapi
+    run: rabbitmq-producer
 
 spec:
   replicas: 2
   selector:
     matchLabels:
-      run: techtalksapi
+      run: rabbitmq-producer
 
   template:
     metadata:
       labels:
-        run: techtalksapi
+        run: rabbitmq-producer
     spec:
       containers:
-        - name: techtalksapi
-          image: nileshgule/techtalksapi:rabbitmq-keda
+        - name: techtalksproducer
+          image: nileshgule/techtalksproducer:rabbitmq-keda
           env:
             - name: ASPNETCORE_URLS
               value: http://0.0.0.0:8080

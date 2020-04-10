@@ -39,7 +39,8 @@ az aks create `
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
 az aks get-credentials `
     --resource-group=$resourceGroupName `
-    --name=$clusterName
+    --name=$clusterName `
+    --overwrite-existing
 
 Write-Host "Successfully created cluster $clusterName with $workerNodeCount node(s)" -ForegroundColor Green
 

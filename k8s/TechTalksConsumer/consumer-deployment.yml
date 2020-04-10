@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: rabbitmq-consumer-deployment
+  labels:
+    run: rabbitmq-consumer
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: rabbitmq-consumer
+
+  template:
+    metadata:
+      labels:
+        run: rabbitmq-consumer
+        app: rabbitmq-consumer
+    spec:
+      containers:
+        - name: rabbitmq-consumer
+          image: nileshgule/techtalksconsumer:rabbitmq-keda
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: RABBITMQ_HOST_NAME
+              value: "rabbitmq"
+            - name: RABBITMQ_USER_NAME
+              value: "user"
+            - name: RABBITMQ_PASSWORD
+              value: "PASSWORD"
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst

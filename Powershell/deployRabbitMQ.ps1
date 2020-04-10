@@ -1,6 +1,3 @@
-# TO DO
-# Add step for installing RabbitMQ using Helm
-
 Write-Host "Starting deployment of RabbitMQ using Helm" -ForegroundColor Yellow
 
 helm install rabbitmq `

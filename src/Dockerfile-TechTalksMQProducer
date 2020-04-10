@@ -3,12 +3,12 @@ FROM microsoft/dotnet:2.1.300-sdk  AS build-env
 
 WORKDIR /app
 
-COPY TechTalksAPI /TechTalksAPI/
+COPY TechTalksMQProducer /TechTalksMQProducer/
 COPY TechTalksModel /TechTalksModel/
 
 # COPY NuGet.config ./
 
-WORKDIR /TechTalksAPI
+WORKDIR /TechTalksMQProducer
 RUN dotnet restore
 
 #COPY . ./
@@ -19,8 +19,8 @@ RUN dotnet publish --configuration Release --output releaseOutput --no-restore
 #FROM microsoft/aspnetcore
 FROM microsoft/dotnet:2.1.0-aspnetcore-runtime
 
-WORKDIR /TechTalksAPI
+WORKDIR /TechTalksMQProducer
 
-COPY --from=build-env /TechTalksAPI/releaseOutput ./
+COPY --from=build-env /TechTalksMQProducer/releaseOutput ./
 
-ENTRYPOINT ["dotnet", "TechTalksAPI.dll"]
+ENTRYPOINT ["dotnet", "TechTalksMQProducer.dll"]

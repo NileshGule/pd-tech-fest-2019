@@ -24,13 +24,6 @@ namespace TechTalksAPI
             services.AddMvc()
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // services.AddDbContext<KeyValueContext>(o => o.UseInMemoryDatabase("KeyValueDB"));
-
-            // services.AddDbContext<TechTalksDBContext>
-            // (
-            //     options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            // );
-
             services.AddTransient<ITechTalksEventPublisher, TechTalksEventPublisher>();
         }
 

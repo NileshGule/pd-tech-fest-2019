@@ -1,13 +1,10 @@
 using System;
-using System.Linq;
 using System.Text;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using Newtonsoft.Json;
 using TechTalksModel;
 using System.Threading;
-using TechTalksModel.DTO;
-using Microsoft.EntityFrameworkCore;
 
 namespace TechTalksProcessor.Messaging
 {
@@ -17,20 +14,35 @@ namespace TechTalksProcessor.Messaging
         private const string queueName = "hello";
         private const string routingKey = "hello";
 
+        private readonly string rabbitMQHostName;
+        private readonly string rabbitMQUserName;
+
+        private readonly string rabbitMQPassword;
+
         private static ManualResetEvent _ResetEvent = new ManualResetEvent(false);
 
         public TechTalksEventConsumer()
         {
+            rabbitMQHostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST_NAME"); ;
+            rabbitMQUserName = Environment.GetEnvironmentVariable("RABBITMQ_USER_NAME");
+            rabbitMQPassword = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD");
 
+            // rabbitMQHostName = config.GetValue<string>("RABBITMQ_HOST_NAME");
+            // rabbitMQUserName = config.GetValue<string>("RABBITMQ_USER_NAME");
+            // rabbitMQPassword = config.GetValue<string>("RABBITMQ_PASSWORD");
         }
 
         public void ConsumeMessage()
         {
             var factory = new ConnectionFactory()
             {
-                HostName = "rabbitmq",
-                UserName = "user",
-                Password = "PASSWORD"
+                // HostName = "rabbitmq",
+                // UserName = "user",
+                // Password = "PASSWORD"
+
+                HostName = rabbitMQHostName,
+                UserName = rabbitMQUserName,
+                Password = rabbitMQPassword
             };
 
             using (var connection = factory.CreateConnection())

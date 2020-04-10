@@ -222,3 +222,12 @@ Here are the links to slides from the presentation
 ### Speakerdeck
 
 [![Scaling containers with KEDA](/images/speakerdeck.PNG)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
+
+## Video recording
+
+### PD Tech Fest 2019
+
+- The video recording of the session at PD Tech Fest 2019 conferences
+
+[![Getting started with Docker](/Images/AKS-Part1.PNG)](https://www.facebook.com/ProgrammersDevelopers/videos/385470598770174/
+)
