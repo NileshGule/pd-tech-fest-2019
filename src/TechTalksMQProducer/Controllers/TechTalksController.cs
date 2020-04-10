@@ -31,15 +31,10 @@ namespace TechTalksAPI.Controllers
             return techTalks;
         }
 
-        // POST api/TechTalks
-        [HttpPost]
-        public IActionResult Create([FromBody]TechTalkDTO techTalkDto)
+        // POST api/TechTalks/Generate?numberOfMessages=100
+        [HttpGet("Generate")]
+        public IActionResult GenerateTechTalks(int numberOfMessages)
         {
-            if (techTalkDto == null)
-            {
-                return BadRequest();
-            }
-
             var fakeDataCreator = new Faker();
 
             var categoryNames = new List<string>() { "Meetup", "Free Conference", "Paid Conference", "Hackathon", "EventTribe" };
@@ -73,8 +68,8 @@ namespace TechTalksAPI.Controllers
                 LevelName = fakeDataCreator.PickRandom(levelNames)
             });
 
-            // generate 1000 dummy TechTalks
-            var dummyTechTalks = techTalks.Generate(1000);
+            // generate required number of dummy TechTalks
+            var dummyTechTalks = techTalks.Generate(numberOfMessages);
 
             Console.WriteLine("Sending messages to queue");
 
