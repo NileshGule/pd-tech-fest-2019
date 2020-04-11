@@ -1,5 +1,4 @@
 using TechTalksModel;
-using TechTalksModel.DTO;
 using System.Collections.Generic;
 
 namespace TechTalksAPI.Messaging

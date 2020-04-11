@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TechTalksModel.DTO;
 using TechTalksAPI.Messaging;
 using TechTalksModel;
 using Bogus;
@@ -37,7 +34,14 @@ namespace TechTalksAPI.Controllers
         {
             var fakeDataCreator = new Faker();
 
-            var categoryNames = new List<string>() { "Meetup", "Free Conference", "Paid Conference", "Hackathon", "EventTribe" };
+            var categoryNames = new List<string>()
+            {
+                "Meetup",
+                "Free Conference",
+                "Paid Conference",
+                "Hackathon",
+                "EventTribe"
+            };
 
             var categoryDescriptions = new List<string>()
             {
@@ -48,7 +52,13 @@ namespace TechTalksAPI.Controllers
                 "Community event organized via Eventribe"
             };
 
-            var levelNames = new List<string>() { "100 - Beginer", "200 - Intermediate", "300 - Advanced", "400 - Expert" };
+            var levelNames = new List<string>()
+            {
+                "100 - Beginer",
+                "200 - Intermediate",
+                "300 - Advanced",
+                "400 - Expert"
+            };
 
             var techTalks = new Faker<TechTalk>()
             .StrictMode(true)
@@ -74,6 +84,8 @@ namespace TechTalksAPI.Controllers
             Console.WriteLine("Sending messages to queue");
 
             _messageQueue.SendMessages(dummyTechTalks);
+
+            Console.WriteLine($"Successfully sent {numberOfMessages} messages to queue");
 
             return Ok();
         }

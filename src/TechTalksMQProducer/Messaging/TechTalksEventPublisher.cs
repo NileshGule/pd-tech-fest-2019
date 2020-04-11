@@ -12,7 +12,7 @@ namespace TechTalksAPI.Messaging
 {
     public class TechTalksEventPublisher : ITechTalksEventPublisher
     {
-        private const string exchangeName = "TechTalksExchange";
+        // private const string exchangeName = "TechTalksExchange";
         private const string queueName = "hello";
         private const string routingKey = "hello";
 
@@ -63,7 +63,10 @@ namespace TechTalksAPI.Messaging
 
                     talks.ForEach(talk =>
                     {
-                        serializedTalks.Add(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(talk)));
+                        serializedTalks.Add(
+                            Encoding.UTF8.GetBytes(
+                                JsonConvert.SerializeObject(talk)
+                                ));
                     });
 
                     serializedTalks.ForEach(body =>
