@@ -12,7 +12,6 @@ namespace TechTalksAPI.Messaging
 {
     public class TechTalksEventPublisher : ITechTalksEventPublisher
     {
-        // private const string exchangeName = "TechTalksExchange";
         private const string queueName = "hello";
         private const string routingKey = "hello";
 

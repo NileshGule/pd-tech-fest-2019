@@ -1,9 +1,7 @@
 ﻿using System;
 using System.IO;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TechTalksModel;
 using TechTalksProcessor.Messaging;
 
 namespace TechTalksMQProcessor

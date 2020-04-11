@@ -11,7 +11,7 @@ namespace TechTalksProcessor.Messaging
 {
     public class TechTalksEventConsumer : ITechTalksEventConsumer
     {
-        private const string exchangeName = "TechTalksExchange";
+        // private const string exchangeName = "TechTalksExchange";
         private const string queueName = "hello";
         private const string routingKey = "hello";
 
