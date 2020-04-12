@@ -25,6 +25,21 @@ az group create `
     --location=$resourceGroupLocaltion `
     --output=jsonc
 
+$SUBSCRIPTION = $(Get-AzureSubscription -SubscriptionName $subscriptionName).SubscriptionId
+
+# Create Service Principal, storing the JSON to grab two vars next
+$SERVICE_PRINCIPAL = $(az ad sp create-for-rbac `
+        --name kedasp `
+        --scope /subscriptions/$SUBSCRIPTION/resourceGroups/$resourceGroupName `
+        --role Contributor `
+        --output json)
+
+# Get the AKS SP ID from the service principal JSON
+$AKS_SP_ID = $(az ad sp list --display-name kedasp --query [].appId -o tsv)
+
+# Get the AKS SP pass from the service principal JSON
+$AKS_SP_PASS = $(az ad sp list --display-name kedasp --query [].password -o tsv)
+
 # Create AKS cluster
 Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
 az aks create `
@@ -32,8 +47,10 @@ az aks create `
     --name=$clusterName `
     --node-count=$workerNodeCount `
     --disable-rbac `
-    --output=jsonc
-# --kubernetes-version=$kubernetesVersion `
+    --service-principal=$AKS_SP_ID `
+    --client-secret=$AKS_SP_PASS `
+    --output=jsonc `
+    # --kubernetes-version=$kubernetesVersion `
 
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
