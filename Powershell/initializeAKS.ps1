@@ -60,8 +60,9 @@ az aks create `
     --name=$clusterName `
     --node-count=$workerNodeCount `
     --enable-managed-identity `
-    --disable-rbac `
     --output=jsonc
+# --disable-rbac `
+
 # --service-principal=$appId `
 #     --client-secret=$password `
 # --kubernetes-version=$kubernetesVersion `
