@@ -246,15 +246,15 @@ As part of my YouTube channel, I also did a multi-part series on this project. T
 
 - Part 1 - Autoscaling containers with KEDA - Provision AKS cluster
 
-[![Part 1 - Autoscaling containers with KEDA - Provision AKS cluster](/Images/part1-AKS-cluster-provision.gif)](https://youtu.be/Bq2CpEcRtPw)
+[![Part 1 - Autoscaling containers with KEDA - Provision AKS cluster](/images/part1-AKS-cluster-provision.gif)](https://youtu.be/Bq2CpEcRtPw)
 
 - Part 2 - Autoscaling containers with KEDA - Deploy Application Containers
 
-[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/Images/part2-deploy-application-containers.png)](https://youtu.be/X8x_FdN1Fvo)
+[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/images/part2-deploy-application-containers.png)](https://youtu.be/X8x_FdN1Fvo)
 
 - Part 3 - Autoscaling containers with KEDA - KEDA Autoscale in action
 
-[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/Images/part3-KEDA-install.gif)](https://youtu.be/X8x_FdN1Fvo)
+[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/images/part3-KEDA-install.gif)](https://youtu.be/X8x_FdN1Fvo)
 
 ## Slides
 
