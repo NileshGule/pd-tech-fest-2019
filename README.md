@@ -133,6 +133,14 @@ Execute the `deployAutoScaler.ps1` powershell script.
 
 ```
 
+If you do not wish to run the individual PowerShell scripts, you can run one single script which will deploy all the necessary things by running the above scripts in correct order.
+
+```Powershell
+
+.\deployAll.ps1
+
+```
+
 ### 2.6 Get list of all the services deployed in the cluster
 
 We will need to know the service name for RabbitMQ to be able to do port forwarding to the RabbitMQ management UI and also the public IP assigned to the TechTalks producer service which will be used to generate the messages onto RabbitmQ queue.
@@ -147,7 +155,7 @@ kubectl get svc
 
 As we can see above, RabbitMQ service is available within the Kubernetes cluster and it exposes `4369`, `5672`, `25672` and `15672` ports. We will be using `15672` port to map to a local port.
 
-Also note the public `LoadBalancer` IP for the techtalksapi service. In this case the IP is **`13.67.52.226`**.
+Also note the public `LoadBalancer` IP for the techtalksapi service. In this case the IP is **`52.139.237.252`**.
 **Note:** This IP will be different when the services are redeployed on a different Kubernetes cluster.
 
 ### 2.7 Watch for deployments
@@ -186,33 +194,37 @@ Login to the management UI using credentials as `user` and `PASSWORD`. Remember 
 
 I am using [Postman](https://www.getpostman.com/) to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`. You can use any other command line tool like CURL to submit a GET request.
 
-Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a GET request to the API. http://13.67.52.226:8080/api/TechTalks/Generate?numberOfMessages=200
+Use the `EXTERNAL-IP -52.139.237.252` with port `8080` to submit a GET request to the API. http://52.139.237.252:8080/api/TechTalks/Generate?numberOfMessages=2000
 
-Make sure to set the method to `POST` and add the header with key as `Content-Type` and value as `application/json`. Also specify the body with a random integer as shown below.
+![postman success](/images/postman-get-request.png)
 
-![postman header](/images/postman-header.png)
+Note that we are setting the number of messages to be produced by Producer as 2000 in this case. You can change the number to any other integer value.
 
-![postman body](/images/postman-body.png)
-
-After building the POST query, hit the blue `Send` button on the top right. If everything goes fine, you should receive a `200 OK` as status code.
+After building the GET query, hit the blue `Send` button on the top right. If everything goes fine, you should receive a `200 OK` as status code.
 
 ![postman success](/images/postman-success.png)
 
-The Producer will produce 1000 messages on the queue named `hello`. The consumer is configured to process `10` messages in a batch. The consumer also simulates a long running process by sleeping for `2 seconds`.
+The Producer will produce 2000 messages on the queue named `hello`. The consumer is configured to process `10` messages in a batch. The consumer also simulates a long running process by sleeping for `2 seconds`.
 
 ### 2.11 Auto-scaling in action
 
 See the number of containers for consumer grow to adjust the messages and also the drop when messages are processed.
 
-![autoscaling consumers](/images/autoscaling.png)
+![autoscaling consumers](/images/pods-and-deployments-autoscaled.png)
+
+On the left hand side of the screen you can see the pods auto scaled and on the right we see the deploymnets autoscaled progressively to 2,4,8, 16 and 30.
 
 While the messages are being processed, we can also observe the RabbitMQ management UI.
 
 ![autoscaling consumers](/images/RabbitMQ-managementUI.PNG)
 
-Our consumer processes 10 messages in a batch by prefetching them together. This can be verified by looking at the details of the consumers.
+Our consumer processes 50 messages in a batch by prefetching them together. This can be verified by looking at the details of the consumers.
 
 ![Prefetch messages](/images/rabbitMQ-prefetch.PNG)
+
+Once all the messages are processed, KEDA will scale down the pods and the deployments.
+
+![autoscaled down consumers](/images/pods-and-deployments-scaled-down.png)
 
 List Custom Resource Definition
 
@@ -222,7 +234,27 @@ kubeclt get crd
 
 ```
 
+![autoscaled down consumers](/images/KEDA-CRD.PNG)
+
 ---
+
+As part of the KEDA installation, ScaledObject and TriggerAuthentications are deployed on the Kubernetes cluster.
+
+## YouTube videos
+
+As part of my YouTube channel, I also did a multi-part series on this project. The videos published on the channel are available below :
+
+- Part 1 - Autoscaling containers with KEDA - Provision AKS cluster
+
+[![Part 1 - Autoscaling containers with KEDA - Provision AKS cluster](/Images/part1-AKS-cluster-provision.gif)](https://youtu.be/Bq2CpEcRtPw)
+
+- Part 2 - Autoscaling containers with KEDA - Deploy Application Containers
+
+[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/Images/part2-deploy-application-containers.png)](https://youtu.be/X8x_FdN1Fvo)
+
+- Part 3 - Autoscaling containers with KEDA - KEDA Autoscale in action
+
+[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/Images/part3-KEDA-install.gif)](https://youtu.be/X8x_FdN1Fvo)
 
 ## Slides
 
