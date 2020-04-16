@@ -31,8 +31,28 @@ spec:
             - name: RABBITMQ_PASSWORD
               value: "PASSWORD"
             - name: RABBITMQ_BATCH_SIZE
-              value : "50"
+              value: "50"
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
-      dnsPolicy: ClusterFirst
+      # dnsPolicy: ClusterFirst
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.0.0.10
+        searches:
+          - default.svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
+        options:
+          - name: ndots
+            value: "5"
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+        - key: virtual-kubelet.io/provider
+          operator: Exists
+        - key: azure.com/aci
+          effect: NoSchedule

@@ -8,7 +8,7 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$clusterName = "aksmqCluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 2,
+    [int16]$workerNodeCount = 1,
     [parameter(Mandatory = $false)]
     [string]$kubernetesVersion = "1.11.2"
 
@@ -25,33 +25,48 @@ az group create `
     --location=$resourceGroupLocaltion `
     --output=jsonc
 
-# $SUBSCRIPTION = $(Get-AzureSubscription -SubscriptionName $subscriptionName).SubscriptionId
+Write-Host "Creating Virtual Network"
+az network vnet create `
+    --resource-group $resourceGroupName `
+    --name kedaVnet `
+    --address-prefixes 10.0.0.0/8 `
+    --subnet-name kedaAKSSubnet `
+    --subnet-prefix 10.240.0.0/16 `
+    --output=jsonc
 
-# # Create Service Principal, storing the JSON to grab two vars next
-# # $SERVICE_PRINCIPAL = $(az ad sp create-for-rbac `
-# #         --name kedasp `
-# #         --scope /subscriptions/$SUBSCRIPTION/resourceGroups/$resourceGroupName `
-# #         --role Contributor `
-# #         --skip-assignment `
-# #         --output json)
+# Create subnet for Virtual Node
+Write-Host "Creating subnet for Virtual Node"
+az network vnet subnet create `
+    --resource-group $resourceGroupName `
+    --vnet-name kedaVnet `
+    --name kedaVirtualNodeSubnet `
+    --address-prefixes 10.241.0.0/16 `
+    --output=jsonc
 
-# # Create Service Principal
-# $password = $(az ad sp create-for-rbac `
-#         --name kedasp `
-#         --skip-assignment `
-#         --query password `
-#         --output tsv)
+# Create Service Principal
+$password = $(az ad sp create-for-rbac `
+        --name kedasp `
+        --skip-assignment `
+        --query password `
+        --output tsv)
 
-# # Assign permissions to Virtual Network
-# $appId = $(az ad sp list --display-name kedasp --query [].appId -o tsv)
+# Assign permissions to Virtual Network
+$appId = $(az ad sp list --display-name kedasp --query [].appId -o tsv)
 
-# # Get the AKS SP ID from the service principal JSON
-# $AKS_SP_ID = $(az ad sp list --display-name kedasp --query [].appId -o tsv)
-# Write-Host "SP ID : $appId"
+# Write-Host "Password = $password"
 
-# # Get the AKS SP pass from the service principal JSON
-# $AKS_SP_PASS = $(az ad sp list --display-name kedasp --query [].password -o tsv)
-# Write-Host "SP PWD : $password"
+# Get Virtual network Resource Id
+$vNetId = $(az network vnet show --resource-group $resourceGroupName --name kedaVnet --query id -o tsv)
+
+# Create Role assignment
+az role assignment create `
+    --assignee $appId `
+    --scope $vNetId `
+    --role Contributor `
+    --output=jsonc
+
+# Get AKS Subnet ID
+$aksSubnetID = $(az network vnet subnet show --resource-group $resourceGroupName --vnet-name kedaVnet --name kedaAKSSubnet --query id -o tsv)
 
 # Create AKS cluster
 Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
@@ -59,9 +74,25 @@ az aks create `
     --resource-group=$resourceGroupName `
     --name=$clusterName `
     --node-count=$workerNodeCount `
-    --enable-managed-identity `
+    --network-plugin azure `
+    --service-cidr 10.0.0.0/16 `
+    --dns-service-ip 10.0.0.10 `
+    --docker-bridge-address 172.17.0.1/16 `
+    --vnet-subnet-id $aksSubnetID `
+    --service-principal $appId `
+    --client-secret $password `
     --output=jsonc
 # --disable-rbac `
+# --enable-managed-identity `
+
+# Enable virtual node add on
+Write-Host "Enabling Virtual Node addon for cluster $clusterName" -ForegroundColor Yellow
+az aks enable-addons `
+    --resource-group $resourceGroupName `
+    --name $clusterName `
+    --addons virtual-node `
+    --subnet-name kedaVirtualNodeSubnet `
+    --output=jsonc
 
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
