@@ -12,18 +12,20 @@ There are multiple options for scaling with Kubernetes and containers in general
 - kubectl logged into kubernetes cluster
 - Powershell
 - Postman
+- Helm
+- DockerHub account (optional)
 
 If you wish to use Kubernetes cluster apart from AKS, you can skip the `Step 2.1` of provisioning the cluster and [install KEDA](https://github.com/kedacore/keda#setup) on your own kubernetes cluster.
 
-Similarly, if you do not wish to execute the Powershell scripts, you can execute teh commands which are part of those scripts manually.
+Similarly, if you do not wish to execute the Powershell scripts, you can execute the commands which are part of those scripts manually.
 
 ## 1 - Code organization
 
 - [src](src)
 
-Contains the source code for a model classes for a hypothetical Tech Talks management application. `TechTalksAPI` contains the code for generating the events / messages which are published to a RabbitMQ queue. `TechTalksMQConsumer` contains the consumer code for processing RabbitMQ messages.
+Contains the source code for a model classes for a hypothetical Tech Talks management application. `TechTalksMQProducer` contains the code for generating the events / messages which are published to a RabbitMQ queue. `TechTalksMQConsumer` contains the consumer code for processing RabbitMQ messages.
 
-Both the Producer and Consumer uses the common data model. In order to build these using Dockerfile, we define the [TechTalksAPI](/src/Dockerfile-TechTalksAPI) and [TechTalksMQConsumer](/src/Dockerfile-TechTalksMQConsumer). These are built [docker-compose-build](/src/docker-compose-build.yml) file.
+Both the Producer and Consumer uses the common data model. In order to build these using Dockerfile, we define the [TechTalksMQProducer](/src/Dockerfile-TechTalksMQProducer) and [TechTalksMQConsumer](/src/Dockerfile-TechTalksMQConsumer). These are built [docker-compose-build](/src/docker-compose-build.yml) file.
 
 The docker images can be built using the following command
 
@@ -33,7 +35,7 @@ docker-compose -f docker-compose-build.yml build
 
 ```
 
-Once the images are built successfully, we can push them to the DockerHub reistry using the command
+Once the images are built successfully, we can push them to the DockerHub registry using the command
 
 ```powershell
 
@@ -43,15 +45,15 @@ docker-compose -f docker-compose-build.yml push
 
 - [Powershell](Powersehll)
 
-Contains the helper Poweshell scripts to provision AKS cluster, to proxy into the Kubernetes control plane, to delete the resource group, to deploy the application and also to delete the application.
+Contains the helper Powershell scripts to provision AKS cluster, to proxy into the Kubernetes control plane, to delete the resource group, to deploy the application and also to delete the application.
 
 - [k8s](k8s)
 
-Contains Kubernetes manifest files for deploying the Producer and Consumer components to the Kubernetes cluster.
+Contains Kubernetes manifest files for deploying the Producer, Consumer and the Autoscalar components to the Kubernetes cluster.
 
 - [helm](helm)
 
-Contains the Helm RBAC enabling yaml file which add the Cluster Role Binding for RBAC enabled Kubernetes cluster.
+Contains the Helm RBAC enabling yaml file which add the Cluster Role Binding for RBAC enabled Kubernetes cluster. This was required before Helm 3.0 for the Tiller service.With helm 3.0, Tiller is no longer required.
 
 ---
 
@@ -71,9 +73,17 @@ Note: The default options can be overwritten by passing arguments to the initial
 
 ```powershell
 
-.initilaizeAKS `
+.\initilaizeAKS `
 -workerNodeCount 4 `
 -resourceGroupName "kedaresgrp"
+
+```
+
+### 2.2 Deploy KEDA
+
+```powershell
+
+.\deployKEDA.ps1
 
 ```
 
@@ -85,22 +95,15 @@ kubectl get all -n keda
 
 ```
 
-### 2.2 Deploy RabbitMQ queue
+### 2.3 Deploy RabbitMQ queue
 
-```code
+```powershell
 
-helm install --name rabbitmq --set rabbitmq.username=user,rabbitmq.password=PASSWORD stable/rabbitmq
+.\deployRabbitMQ.ps1
 
 ```
 
-### 2.3 Deploy RabbitMQ Producer & Consumers
-
-Generate Base 64 string for RabbitMQ connection
-
-#get base64 password
-
-$rabbitMQhost  = [System.Text.Encoding]::UTF8.GetBytes("amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672")
-[System.Convert]::ToBase64String($rabbitMQhost)
+### 2.4 Deploy RabbitMQ Producer & Consumers
 
 Execute the `deployTechTalks-AKS.ps1` powershell script.
 
@@ -120,7 +123,17 @@ kubectl apply -R -f .
 
 ```
 
-### 2.4 Get list of all the services deployed in the cluster
+### 2.5 Deploy Auto scalar for RabbitMQ consumer deployment
+
+Execute the `deployAutoScaler.ps1` powershell script.
+
+```powershell
+
+.\deployAutoScaler.ps1
+
+```
+
+### 2.6 Get list of all the services deployed in the cluster
 
 We will need to know the service name for RabbitMQ to be able to do port forwarding to the RabbitMQ management UI and also the public IP assigned to the TechTalks producer service which will be used to generate the messages onto RabbitmQ queue.
 
@@ -137,7 +150,7 @@ As we can see above, RabbitMQ service is available within the Kubernetes cluster
 Also note the public `LoadBalancer` IP for the techtalksapi service. In this case the IP is **`13.67.52.226`**.
 **Note:** This IP will be different when the services are redeployed on a different Kubernetes cluster.
 
-### 2.5 Watch for deployments
+### 2.7 Watch for deployments
 
 The rabbitmq `ScaledObject` will be deployed as part of the deployment. Watch out for the deployments to see the changes in the scaling as the number of messages increases
 
@@ -153,7 +166,7 @@ kubectl get deploy -w
 
 Initially there is 1 instance of rabbitmq-consumer and 2 replicas of the techtalksapi (producer) deployed in the cluster.
 
-### 2.6 Port forward for RabbitMQ management UI
+### 2.8 Port forward for RabbitMQ management UI
 
 We will use port forwarding approach to access the RabbitMQ management UI.
 
@@ -163,17 +176,17 @@ kubectl port-forward svc/rabbitmq 15672:15672
 
 ```
 
-### 2.7 Browse RabbitMQ Management UI
+### 2.9 Browse RabbitMQ Management UI
 
 http://localhost:15672/
 
 Login to the management UI using credentials as `user` and `PASSWORD`. Remember that these were set duing the installation of RabbitMQ services using Helm. If you are using any other user, please update the username and password accordingly.
 
-### 2.8 Generate load using `Postman`
+### 2.10 Generate load using `Postman`
 
-I am using [Postman](https://www.getpostman.com/) to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`. You can use any other command line tool like CURL to submit a POST request.
+I am using [Postman](https://www.getpostman.com/) to submit a POST request to the API which generates 1000 messages onto a RabbitMQ queue named `hello`. You can use any other command line tool like CURL to submit a GET request.
 
-Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a post request to the API. http://13.67.52.226:8080/api/TechTalks/
+Use the `EXTERNAL-IP -13.67.52.226` with port `8080` to submit a GET request to the API. http://13.67.52.226:8080/api/TechTalks/Generate?numberOfMessages=200
 
 Make sure to set the method to `POST` and add the header with key as `Content-Type` and value as `application/json`. Also specify the body with a random integer as shown below.
 
@@ -187,7 +200,7 @@ After building the POST query, hit the blue `Send` button on the top right. If e
 
 The Producer will produce 1000 messages on the queue named `hello`. The consumer is configured to process `10` messages in a batch. The consumer also simulates a long running process by sleeping for `2 seconds`.
 
-### 2.9 Auto-scaling in action
+### 2.11 Auto-scaling in action
 
 See the number of containers for consumer grow to adjust the messages and also the drop when messages are processed.
 
@@ -229,5 +242,4 @@ Here are the links to slides from the presentation
 
 - The video recording of the session at PD Tech Fest 2019 conferences
 
-[![Getting started with Docker](/Images/AKS-Part1.PNG)](https://www.facebook.com/ProgrammersDevelopers/videos/385470598770174/
-)
+[![Getting started with Docker](/Images/AKS-Part1.PNG)](https://www.facebook.com/ProgrammersDevelopers/videos/385470598770174/)
