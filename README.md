@@ -250,7 +250,7 @@ As part of my YouTube channel, I also did a multi-part series on this project. T
 
 - Part 2 - Autoscaling containers with KEDA - Deploy Application Containers
 
-[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/images/part2-deploy-application-containers.png)](https://youtu.be/X8x_FdN1Fvo)
+[![Part 2 - Autoscaling containers with KEDA - Deploy Application Containers](/images/part2-apps-deployment.png)](https://youtu.be/X8x_FdN1Fvo)
 
 - Part 3 - Autoscaling containers with KEDA - KEDA Autoscale in action
 
