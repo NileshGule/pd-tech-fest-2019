@@ -9,14 +9,14 @@ metadata:
 spec:
   scaleTargetRef:
     deploymentName: rabbitmq-consumer-deployment
-  pollingInterval: 5   # Optional. Default: 30 seconds
-  cooldownPeriod: 30   # Optional. Default: 300 seconds
-  minReplicaCount: 1   # Optional. Default: 0
-  maxReplicaCount: 30  # Optional. Default: 100
+  pollingInterval: 60 # Optional. Default: 30 seconds
+  # cooldownPeriod: 30 # Optional. Default: 300 seconds
+  minReplicaCount: 0 # Optional. Default: 0
+  maxReplicaCount: 30 # Optional. Default: 100
   triggers:
-  - type: rabbitmq
-    metadata:
-      queueName: hello
-      queueLength  : '5'
-    authenticationRef:
-      name: trigger-auth-rabbitmq-host
+    - type: rabbitmq
+      metadata:
+        queueName: hello
+        queueLength: "5"
+      authenticationRef:
+        name: trigger-auth-rabbitmq-host

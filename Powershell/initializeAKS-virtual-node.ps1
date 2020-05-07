@@ -2,15 +2,15 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-kedaSeriesRG",
+    [string]$resourceGroupName = "demo-aks-vnodeRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "aksmqCluster",
+    [string]$clusterName = "aksVNodeCluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 1,
-    [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.11.2"
+    [int16]$workerNodeCount = 1
+    # [parameter(Mandatory = $false)]
+    # [string]$kubernetesVersion = "1.11.2"
 
 )
 
@@ -51,12 +51,19 @@ $password = $(az ad sp create-for-rbac `
         --output tsv)
 
 # Assign permissions to Virtual Network
-$appId = $(az ad sp list --display-name kedasp --query [].appId -o tsv)
+$appId = $(az ad sp list `
+        --display-name kedasp `
+        --query [].appId `
+        -o tsv)
 
 # Write-Host "Password = $password"
 
 # Get Virtual network Resource Id
-$vNetId = $(az network vnet show --resource-group $resourceGroupName --name kedaVnet --query id -o tsv)
+$vNetId = $(az network vnet show `
+        --resource-group $resourceGroupName `
+        --name kedaVnet `
+        --query id `
+        -o tsv)
 
 # Create Role assignment
 az role assignment create `
@@ -66,7 +73,12 @@ az role assignment create `
     --output=jsonc
 
 # Get AKS Subnet ID
-$aksSubnetID = $(az network vnet subnet show --resource-group $resourceGroupName --vnet-name kedaVnet --name kedaAKSSubnet --query id -o tsv)
+$aksSubnetID = $(az network vnet subnet show `
+        --resource-group $resourceGroupName `
+        --vnet-name kedaVnet `
+        --name kedaAKSSubnet `
+        --query id `
+        -o tsv)
 
 # Create AKS cluster
 Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
@@ -81,6 +93,7 @@ az aks create `
     --vnet-subnet-id $aksSubnetID `
     --service-principal $appId `
     --client-secret $password `
+    --enable-addons monitoring `
     --output=jsonc
 # --disable-rbac `
 # --enable-managed-identity `
