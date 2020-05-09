@@ -334,3 +334,7 @@ ASALocalRun/
 groundlabs.md
 
 .vscode/
+
+# Terraform state files
+**.terraform
+**.*tfstate*
