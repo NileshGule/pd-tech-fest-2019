@@ -334,3 +334,5 @@ ASALocalRun/
 groundlabs.md
 
 .vscode/
+
+terraform/.terraform
