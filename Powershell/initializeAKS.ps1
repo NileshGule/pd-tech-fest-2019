@@ -63,12 +63,6 @@ az aks create `
     --output=jsonc
 # --disable-rbac `
 
-# --service-principal=$appId `
-#     --client-secret=$password `
-# --kubernetes-version=$kubernetesVersion `
-
-# az role assignment create --assignee $appId --scope $resourceGroupName --role Contributor
-
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
 az aks get-credentials `
