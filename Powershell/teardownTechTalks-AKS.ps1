@@ -7,7 +7,8 @@ Write-Host "Starting deployment of TechTalks application and services" -Foregrou
 
 Write-Host "Deleting Tech Talks Consumer " -ForegroundColor Yellow
 Set-Location $techTalksConsumerRootDirectory
-kubectl delete --recursive --filename .
+# kubectl delete --recursive --filename .
+kubectl delete deployment rabbitmq-consumer-deployment
 
 Write-Host "Tech talks Consumer service deleted successfully" -ForegroundColor Cyan
 

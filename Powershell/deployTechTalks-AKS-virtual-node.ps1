@@ -1,14 +1,3 @@
-Param(
-    [parameter(Mandatory = $false)]
-    [bool]$ProvisionAKSCluster = $false
-)
-
-
-if ($ProvisionAKSCluster) {
-    Write-Host "Provisioning AKS cluster with default parameters" -ForegroundColor Cyan
-    & ((Split-Path $MyInvocation.InvocationName) + "\initializeAKS.ps1")
-}
-
 # source common variables
 . .\var.ps1
 
@@ -16,7 +5,7 @@ Write-Host "Starting deployment of TechTalks application and services" -Foregrou
 
 Write-Host "Deploying Tech Talks Consumer " -ForegroundColor Yellow
 Set-Location $techTalksConsumerRootDirectory
-kubectl apply --filename consumer-deployment.yml
+kubectl apply --filename consumer-deployment-virtual-node.yml
 
 Write-Host "Tech talks Consumer service deployed successfully" -ForegroundColor Cyan
 

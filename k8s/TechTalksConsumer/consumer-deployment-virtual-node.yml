@@ -35,4 +35,25 @@ spec:
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
-      dnsPolicy: ClusterFirst
+      dnsPolicy: "None"
+      dnsConfig:
+        nameservers:
+          - 10.0.0.10
+        searches:
+          - default.svc.cluster.local
+          - svc.cluster.local
+          - cluster.local
+        options:
+          - name: ndots
+            value: "5"
+      nodeSelector:
+        kubernetes.io/role: agent
+        beta.kubernetes.io/os: linux
+        type: virtual-kubelet
+      tolerations:
+        - key: virtual-kubelet.io/provider
+          operator: Equal
+          value: azure
+          effect: NoSchedule
+        # - key: azure.com/aci
+        #   effect: NoSchedule
