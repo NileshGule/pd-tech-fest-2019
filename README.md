@@ -31,7 +31,8 @@ The docker images can be built using the following command
 
 ```powershell
 
-docker-compose -f docker-compose-build.yml build
+Measure-Command { docker-compose -f docker-compose-build.yml build | Out-Default }
+
 
 ```
 
@@ -39,7 +40,7 @@ Once the images are built successfully, we can push them to the DockerHub regist
 
 ```powershell
 
-docker-compose -f docker-compose-build.yml push
+Measure-Command { docker-compose -f docker-compose-build.yml push | Out-Default }
 
 ```
 
