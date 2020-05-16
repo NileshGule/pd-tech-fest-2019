@@ -23,4 +23,7 @@ WORKDIR /TechTalksMQProducer
 
 COPY --from=build-env /TechTalksMQProducer/releaseOutput ./
 
+#run the container as non-root user
+USER 1000
+
 ENTRYPOINT ["dotnet", "TechTalksMQProducer.dll"]
