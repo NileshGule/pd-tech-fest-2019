@@ -20,7 +20,7 @@ az group create `
     --location=$resourceGroupLocaltion `
     --output=jsonc
 
-# Create Azure Container Registry with Basic SKU and Admin user enabled
+# Create Azure Container Registry with Basic SKU and Admin user disabled
 Write-Host "Creating Azure Container Registry $acrRegistryName under resource group $resourceGroupName " -ForegroundColor Yellow
 az acr create `
     --name=$acrRegistryName `
