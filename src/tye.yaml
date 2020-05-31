@@ -6,13 +6,13 @@
 #
 # define global settings here
 # name: exampleapp # application name
-# registry: ngAcrRegistry.azurecr.io/nileshgule
-registry: nileshgule
+registry: ngAcrRegistry.azurecr.io/nileshgule
+# registry: nileshgule
 
 # define multiple services here
 services:
 - name: rabbitmq-consumer-deployment
-  project: src/TechTalksMQConsumer/TechTalksMQConsumer.csproj
+  project: TechTalksMQConsumer/TechTalksMQConsumer.csproj
   # executable: app.exe # path to an executable (relative to this file)
   # args: --arg1=3 # arguments to pass to the process
   # replicas: 5 # number of times to launch the application
@@ -30,13 +30,13 @@ services:
   # bindings: # optional array of bindings (ports, connection strings)
     # - port: 8080 # number port of the binding
 - name: rabbitmq-producer-service
-  project: src/TechTalksMQConsumer/TechTalksMQConsumer.csproj
+  project: TechTalksMQConsumer/TechTalksMQConsumer.csproj
   # executable: app.exe # path to an executable (relative to this file)
   # args: --arg1=3 # arguments to pass to the process
   replicas: 2 # number of times to launch the application
   env: # array of environment variables
-    - name: ASPNETCORE_URLS
-      value: http://0.0.0.0:8080
+    # - name: ASPNETCORE_URLS
+    #   value: http://0.0.0.0:8080
     - name: RABBITMQ_HOST_NAME
       value: "rabbitmq"
     - name: RABBITMQ_USER_NAME
