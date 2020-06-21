@@ -13,14 +13,14 @@ Param(
 Write-Host "Setting Azure subscription to $subscriptionName"  -ForegroundColor Yellow
 az account set --subscription=$subscriptionName
 
-Create resource group name
+#Create resource group
 Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
 az group create `
     --name=$resourceGroupName `
     --location=$resourceGroupLocaltion `
     --output=jsonc
 
-# Create Azure Container Registry with Basic SKU and Admin user disabled
+# Create Azure Key Vault
 Write-Host "Creating Azure Key Vault $akvName under resource group $resourceGroupName " -ForegroundColor Yellow
 az keyvault create `
     --name=$akvName `
