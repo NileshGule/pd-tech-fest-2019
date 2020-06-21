@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TechTalksAPI.Messaging;
+
 using Microsoft.Extensions.Hosting;
 
 namespace TechTalksAPI
@@ -20,10 +21,7 @@ namespace TechTalksAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.AddMvc()
-            // .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddControllers();
-
 
             services.AddSingleton<IConfiguration>(provider => Configuration);
 
@@ -43,7 +41,7 @@ namespace TechTalksAPI
             }
 
             app.UseHttpsRedirection();
-            // app.UseMvc();
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

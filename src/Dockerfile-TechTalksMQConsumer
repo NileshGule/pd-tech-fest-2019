@@ -1,4 +1,3 @@
-#FROM microsoft/aspnetcore-build AS build-env
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build-env
 
 WORKDIR /app
@@ -16,7 +15,6 @@ RUN dotnet restore
 RUN dotnet publish --configuration Release --output releaseOutput --no-restore
 
 #build runtime image
-#FROM microsoft/aspnetcore
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
 
 WORKDIR /TechTalksMQConsumer
