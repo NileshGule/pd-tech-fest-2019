@@ -10,7 +10,7 @@ Param(
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 2,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.11.2",
+    [string]$kubernetesVersion = "1.16.9",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
 
@@ -35,6 +35,7 @@ az aks create `
     --node-count=$workerNodeCount `
     --enable-managed-identity `
     --attach-acr=$acrRegistryName `
+    --kubernetes-version=$kubernetesVersion `
     --output=jsonc
 
 
