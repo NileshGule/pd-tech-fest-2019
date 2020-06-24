@@ -92,7 +92,7 @@ kubectl port-forward svc/rabbitmq 15672:15672
 
 ## Install Helm
 
-**Note: ** _Helm 2.14_ version has problems creating the Custom Resource Definition for KEDA related objects. Install the stable version of `Helm 2.13.1`
+**Note:** _Helm 2.14_ version has problems creating the Custom Resource Definition for KEDA related objects. Install the stable version of `Helm 2.13.1`
 
 ```Powershell
 
@@ -114,10 +114,18 @@ Invoke-WebRequest -Uri http://104.215.188.111:8080/api/TechTalks -Method POST -C
 
 To Access the RabbitMQ AMQP port:
 
-    kubectl port-forward --namespace default svc/rabbitmq 5672:5672
-    echo "URL : amqp://127.0.0.1:5672/"
+```powershell
+
+kubectl port-forward --namespace default svc/rabbitmq 5672:5672
+echo "URL : amqp://127.0.0.1:5672/"
+
+```
 
 To Access the RabbitMQ Management interface:
 
-    kubectl port-forward --namespace default svc/rabbitmq 15672:15672
-    echo "URL : http://127.0.0.1:15672/"
+```powershell
+
+kubectl port-forward --namespace default svc/rabbitmq 15672:15672
+echo "URL : http://127.0.0.1:15672/"
+
+```
