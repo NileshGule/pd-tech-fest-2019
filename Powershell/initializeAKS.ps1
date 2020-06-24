@@ -38,7 +38,6 @@ az aks create `
     --kubernetes-version=$kubernetesVersion `
     --output=jsonc
 
-
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
 az aks get-credentials `

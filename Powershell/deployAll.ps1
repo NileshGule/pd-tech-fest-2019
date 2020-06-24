@@ -16,6 +16,9 @@ Write-Host "Installing CSI AKV Provider on cluster" -ForegroundColor Cyan
 Write-Host "Deploy AKV secrets" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\deploy-AKV-secrets.ps1")
 
+Write-Host "Assign AKV Access Policy" -ForegroundColor Cyan
+& ((Split-Path $MyInvocation.InvocationName) + "\assign-akv-access-policy.ps1")
+
 Write-Host "Installing TechTalks application on cluster" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\deployTechTalks-AKS.ps1")
 
