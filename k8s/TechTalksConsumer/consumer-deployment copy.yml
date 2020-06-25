@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: rabbitmq-consumer-deployment
+  labels:
+    run: rabbitmq-consumer
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: rabbitmq-consumer
+
+  template:
+    metadata:
+      labels:
+        run: rabbitmq-consumer
+        app: rabbitmq-consumer
+    spec:
+      containers:
+        - name: rabbitmq-consumer
+          image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-3.0
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Development"
+            - name: RABBITMQ_HOST_NAME
+              value: "rabbitmq"
+            - name: RABBITMQ_USER_NAME
+              value: "user"
+            - name: RABBITMQ_PASSWORD
+              value: "PASSWORD"
+            - name: RABBITMQ_BATCH_SIZE
+              value: "50"
+            # - name: RABBITMQ_HOST_NAME
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: akvsecrets
+            #       key: RABBITMQ_HOST_NAME
+            # - name: RABBITMQ_USER_NAME
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: akvsecrets
+            #       key: RABBITMQ_USER_NAME
+            # - name: RABBITMQ_PASSWORD
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: akvsecrets
+            #       key: RABBITMQ_PASSWORD
+            # - name: RABBITMQ_BATCH_SIZE
+            #   valueFrom:
+            #     secretKeyRef:
+            #       name: akvsecrets
+            #       key: RABBITMQ_BATCH_SIZE
+          # volumeMounts:
+          #   - name: secrets-store-inline
+          #     mountPath: "/mnt/secrets-store"
+          #     readOnly: true
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      # volumes:
+      #   - name: secrets-store-inline
+      #     csi:
+      #       driver: secrets-store.csi.k8s.io
+      #       readOnly: true
+      #       volumeAttributes:
+      #         secretProviderClass: "azure-kvname"
+      # nodePublishSecretRef:
+      #   name: secrets-store-creds

@@ -21,11 +21,11 @@ Write-Host "Setting Azure subscription to $subscriptionName"  -ForegroundColor Y
 az account set --subscription=$subscriptionName
 
 #Create resource group
-Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
-az group create `
-    --name=$resourceGroupName `
-    --location=$resourceGroupLocaltion `
-    --output=jsonc
+# Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
+# az group create `
+#     --name=$resourceGroupName `
+#     --location=$resourceGroupLocaltion `
+#     --output=jsonc
 
 # Create Azure Key Vault
 # Write-Host "Creating Azure Key Vault $akvName under resource group $resourceGroupName " -ForegroundColor Yellow
@@ -49,6 +49,7 @@ az role assignment create `
     --assignee $aks.identityProfile.kubeletidentity.clientId `
     --scope /subscriptions/$subscriptionId/resourcegroups/$($aks.nodeResourceGroup)
 
+
 Write-Host "Creating Virtual Machine Contributor Role for Managed Identity"
 az role assignment create `
     --role "Virtual Machine Contributor" `
@@ -64,34 +65,54 @@ $identity = az identity show `
     --name $existingIdentity.name `
     --resource-group $existingIdentity.resourceGroup | ConvertFrom-Json
 
+echo "Providing required permissions for MIC..."
+az role assignment create `
+    --role "Managed Identity Operator" `
+    --assignee $aks.servicePrincipalProfile.clientId `
+    --scope $identity.id
 
 $keyVault = az keyvault show --name $akvName | ConvertFrom-Json
 
-Write-Host "Assigning Reader Role to new Identity for Key Vault..."
+Write-Host "Principal ID : $identity.principalId "
+Write-Host "Principal ID : $identity.clientId "
+
+Write-Host "Assigning Reader Role to new Identity for Key Vault with Principal Id..."
 az role assignment create `
     --role "Reader" `
     --assignee $identity.principalId `
     --scope $keyVault.id
 
-Write-Host "Setting policy to access secrets in Key Vault..."
+Write-Host "Assigning Reader Role to new Identity for Key Vault with Client Id..."
+az role assignment create `
+    --role "Reader" `
+    --assignee $identity.clientId `
+    --scope $keyVault.id
+
+Write-Host "Setting policy to access secrets in Key Vault with Client Id..."
 az keyvault set-policy `
     --name $akvName `
     --secret-permissions get `
     --spn $identity.clientId
 
+Write-Host "Setting policy to access secrets in Key Vault with Principal Id..."
+az keyvault set-policy `
+    --name $akvName `
+    --secret-permissions get `
+    --spn $identity.principalId
+
 # az resource list `
 #     -g MC_demo-kedaSeriesRG_aksmqCluster_southeastasia `
 #     --query "[?contains(type, 'Microsoft.ManagedIdentity/userAssignedIdentities')]"
 
-az resource list `
-    -g MC_demo-kedaSeriesRG_aksmqCluster_southeastasia `
-    --query "[?contains(name, 'aksmqCluster-agentpool')]"
+# az resource list `
+#     -g MC_demo-kedaSeriesRG_aksmqCluster_southeastasia `
+#     --query "[?contains(name, 'aksmqCluster-agentpool')]"
 
-kubectl create secret generic secrets-store-creds `
-    --from-literal clientid="4bb98df3-4f04-4497-add6-871275a589e8"
+# kubectl create secret generic secrets-store-creds `
+#     --from-literal clientid="4bb98df3-4f04-4497-add6-871275a589e8"
 
-az identity show `
-    --name aksmqCluster-agentpool `
-    --resource-group MC_demo-kedaSeriesRG_aksmqCluster_southeastasia
+# az identity show `
+#     --name aksmqCluster-agentpool `
+#     --resource-group MC_demo-kedaSeriesRG_aksmqCluster_southeastasia
 
-az aks show -g <resource group> -n <aks cluster name> --query identityProfile.kubeletidentity.clientId -o tsv
+# az aks show -g demo-kedaSeriesRG -n aksmqCluster --query identityProfile.kubeletidentity.clientId -o tsv

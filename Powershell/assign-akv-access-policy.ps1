@@ -19,7 +19,7 @@ az keyvault set-policy `
     --secret-permissions get `
     --spn "53ecbf8b-166a-4c66-a553-dde574b96f50"
 
-# az vmss identity show `
-# --resource-group demo-kedaSeriesRG `
-# -n aks-nodepool1-16332999-vmss `
-# -o yaml
+az vmss identity show `
+    --resource-group MC_demo-kedaSeriesRG_aksmqCluster_southeastasia `
+    -n aks-nodepool1-16332999-vmss `
+    -o yaml
