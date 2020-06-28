@@ -17,7 +17,7 @@ $msiClientID = az aks show `
 az keyvault set-policy `
     --name $akvName `
     --secret-permissions get `
-    --spn "53ecbf8b-166a-4c66-a553-dde574b96f50"
+    --spn "b20c27ca-98c1-4c34-abd6-00bc7e5202f8"
 
 az vmss identity show `
     --resource-group MC_demo-kedaSeriesRG_aksmqCluster_southeastasia `

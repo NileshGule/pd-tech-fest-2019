@@ -25,14 +25,37 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
             - name: RABBITMQ_HOST_NAME
-              value: "rabbitmq"
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: RABBITMQ_HOST_NAME
             - name: RABBITMQ_USER_NAME
-              value: "user"
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: RABBITMQ_USER_NAME
             - name: RABBITMQ_PASSWORD
-              value: "PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: RABBITMQ_PASSWORD
             - name: RABBITMQ_BATCH_SIZE
-              value: "50"
+              valueFrom:
+                secretKeyRef:
+                  name: akvsecrets
+                  key: RABBITMQ_BATCH_SIZE
+          volumeMounts:
+            - name: secrets-store-inline
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
           imagePullPolicy: Always
+      volumes:
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "azure-kvname"
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
