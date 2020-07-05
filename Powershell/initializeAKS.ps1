@@ -20,24 +20,39 @@ Param(
 Write-Host "Setting Azure subscription to $subscriptionName"  -ForegroundColor Yellow
 az account set --subscription=$subscriptionName
 
-# Create resource group name
-Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
-az group create `
-    --name=$resourceGroupName `
-    --location=$resourceGroupLocaltion `
-    --output=jsonc
+$aksRgExists = az group exists --name $resourceGroupName
 
-# Create AKS cluster
-Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
-az aks create `
-    --resource-group=$resourceGroupName `
-    --name=$clusterName `
-    --node-count=$workerNodeCount `
-    --enable-managed-identity `
-    --attach-acr=$acrRegistryName `
-    --kubernetes-version=$kubernetesVersion `
-    --output=jsonc
+if (!$aksRgExists) {
 
+    # Create resource group name
+    Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
+    az group create `
+        --name=$resourceGroupName `
+        --location=$resourceGroupLocaltion `
+        --output=jsonc
+}
+
+$aks = az aks show `
+    --name $clusterName `
+    --resource-group $resourceGroupName `
+    --query name | ConvertFrom-Json
+
+$aksCLusterExists = $aks.Length -gt 0
+
+if (!$aksCLusterExists) {
+
+    # Create AKS cluster
+    Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
+    az aks create `
+        --resource-group=$resourceGroupName `
+        --name=$clusterName `
+        --node-count=$workerNodeCount `
+        --enable-managed-identity `
+        --attach-acr=$acrRegistryName `
+        --kubernetes-version=$kubernetesVersion `
+        --output=jsonc
+
+}
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
 az aks get-credentials `
