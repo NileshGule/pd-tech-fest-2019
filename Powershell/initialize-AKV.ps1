@@ -22,7 +22,7 @@ az account set --subscription=$subscriptionName
 
 $akvRgExists = az group exists --name $resourceGroupName
 
-if (!$akvRgExists) {
+if ($akvRgExists -eq $false) {
     Create resource group
     Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
     az group create `
@@ -34,7 +34,7 @@ if (!$akvRgExists) {
 $akv = az keyvault show --name $akvName --query name | ConvertFrom-Json
 $keyVaultExists = $akv.Length -gt 0
 
-if (!$keyVaultExists) {
+if ($keyVaultExists -eq $false) {
     Create Azure Key Vault
     Write-Host "Creating Azure Key Vault $akvName under resource group $resourceGroupName " -ForegroundColor Yellow
     az keyvault create `

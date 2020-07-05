@@ -22,7 +22,9 @@ az account set --subscription=$subscriptionName
 
 $aksRgExists = az group exists --name $resourceGroupName
 
-if (!$aksRgExists) {
+Write-Host "$resourceGroupName exists : $aksRgExists"
+
+if ($aksRgExists -eq $false) {
 
     # Create resource group name
     Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
@@ -39,7 +41,7 @@ $aks = az aks show `
 
 $aksCLusterExists = $aks.Length -gt 0
 
-if (!$aksCLusterExists) {
+if ($aksCLusterExists -eq $false) {
 
     # Create AKS cluster
     Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
