@@ -96,8 +96,9 @@ az aks create `
     --service-principal $appId `
     --client-secret $password `
     --enable-addons monitoring `
+    --attach-acr=$acrRegistryName `
     --output=jsonc
-# --attach-acr=$acrRegistryName `
+
 # --disable-rbac `
 # --enable-managed-identity `
 
@@ -125,5 +126,7 @@ kubectl create clusterrolebinding kubernetes-dashboard `
     -n kube-system `
     --clusterrole=cluster-admin `
     --serviceaccount=kube-system:kubernetes-dashboard
+
+./create-image-pull-secret.ps1 -ServicePrincipalID $appId -SpPassword $password
 
 Set-Location ~/projects/pd-tech-fest-2019/Powershell

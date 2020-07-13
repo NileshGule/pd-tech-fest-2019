@@ -1,19 +1,16 @@
 Param(
     [parameter(Mandatory = $false)]
-    [string]$acrRegistryName = "ngAcrRegistry"
+    [string]$acrRegistryName = "ngAcrRegistry",
+    [Parameter(Mandatory = $true)]
+    [string]$ServicePrincipalID,
+    [Parameter(Mandatory = $true)]
+    [string]$SpPassword
 )
 
-$spName = "kedasp"
-
-$password = az ad sp credential reset `
-    --name http://$spName `
-    --query password `
-    --output tsv
-
-kubectl create secret docker-registry regcred `
+kubectl create secret docker-registry acr-image-secret `
     --docker-server=$acrRegistryName.azurecr.io `
-    --docker-username=$spName `
-    --docker-password=$password
+    --docker-username=$ServicePrincipalID `
+    --docker-password=$SpPassword
 
 #verify secret was created
-kubectl get secret regcred --output=yaml
+kubectl get secret acr-image-secret --output=yaml

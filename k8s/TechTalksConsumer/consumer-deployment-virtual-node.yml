@@ -35,8 +35,8 @@ spec:
               value: "50"
           imagePullPolicy: Always
       restartPolicy: Always
-      # imagePullSecrets:
-      #   - name: acr-image-secret
+      imagePullSecrets:
+        - name: acr-image-secret
       terminationGracePeriodSeconds: 30
       dnsPolicy: "None"
       dnsConfig:
