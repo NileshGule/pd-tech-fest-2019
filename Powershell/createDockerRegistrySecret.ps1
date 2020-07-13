@@ -10,7 +10,7 @@ $acrUserName = az acr credential show --name $acrRegistryName --query "username"
 kubectl create secret docker-registry regcred `
     --docker-server=$acrRegistryName.azurecr.io `
     --docker-username=$acrUserName `
-    --docker-password= $acrUserPassword
+    --docker-password=$acrUserPassword
 
 #verify secret was created
 kubectl get secret regcred --output=yaml

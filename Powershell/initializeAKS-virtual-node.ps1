@@ -8,7 +8,9 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$clusterName = "aksVNodeCluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 1
+    [int16]$workerNodeCount = 1,
+    [parameter(Mandatory = $false)]
+    [string]$acrRegistryName = "ngAcrRegistry"
     # [parameter(Mandatory = $false)]
     # [string]$kubernetesVersion = "1.11.2"
 
@@ -94,6 +96,7 @@ az aks create `
     --service-principal $appId `
     --client-secret $password `
     --enable-addons monitoring `
+    --attach-acr=$acrRegistryName `
     --output=jsonc
 # --disable-rbac `
 # --enable-managed-identity `
