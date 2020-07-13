@@ -96,8 +96,8 @@ az aks create `
     --service-principal $appId `
     --client-secret $password `
     --enable-addons monitoring `
-    --attach-acr=$acrRegistryName `
     --output=jsonc
+# --attach-acr=$acrRegistryName `
 # --disable-rbac `
 # --enable-managed-identity `
 

@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
         - name: techtalksproducer
-          image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-3.0
+          # image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-3.0
+          image: nileshgule/techtalksproducer:rabbitmq-keda-3.0
           env:
             - name: ASPNETCORE_URLS
               value: http://0.0.0.0:8080
