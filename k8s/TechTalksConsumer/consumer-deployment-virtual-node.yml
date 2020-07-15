@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: rabbitmq-consumer
-          image: nileshgule/techtalksconsumer:rabbitmq-keda
-          # image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-3.0
+          # image: nileshgule/techtalksconsumer:rabbitmq-keda-3.0
+          image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-3.0
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
@@ -54,7 +54,4 @@ spec:
         beta.kubernetes.io/os: linux
         type: virtual-kubelet
       tolerations:
-        - key: virtual-kubelet.io/provider
-          operator: Equal
-          value: azure
-          effect: NoSchedule
+        - operator: Exists
