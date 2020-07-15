@@ -10,7 +10,9 @@ Param(
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 1,
     [parameter(Mandatory = $false)]
-    [string]$acrRegistryName = "ngAcrRegistry"
+    [string]$acrRegistryName = "ngAcrRegistry",
+    [parameter(Mandatory = $false)]
+    [string]$acrRegistryResourceGroup = "acrResourceGroup"
     # [parameter(Mandatory = $false)]
     # [string]$kubernetesVersion = "1.11.2"
 
@@ -143,6 +145,10 @@ kubectl create clusterrolebinding kubernetes-dashboard `
     --clusterrole=cluster-admin `
     --serviceaccount=kube-system:kubernetes-dashboard
 
-./create-image-pull-secret.ps1 -ServicePrincipalID $appId -SpPassword $password
+./create-image-pull-secret.ps1 `
+    -acrRegistryName $acrRegistryName `
+    -acrRegistryResourceGroup $acrRegistryResourceGroup `
+    -ServicePrincipalID $appId `
+    -SpPassword $password
 
 Set-Location ~/projects/pd-tech-fest-2019/Powershell

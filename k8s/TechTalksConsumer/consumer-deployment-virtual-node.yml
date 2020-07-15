@@ -54,4 +54,7 @@ spec:
         beta.kubernetes.io/os: linux
         type: virtual-kubelet
       tolerations:
-        - operator: Exists
+        - key: virtual-kubelet.io/provider
+          operator: Equal
+          value: azure
+          effect: NoSchedule
