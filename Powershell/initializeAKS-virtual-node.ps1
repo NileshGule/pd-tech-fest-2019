@@ -20,12 +20,19 @@ Param(
 Write-Host "Setting Azure subscription to $subscriptionName"  -ForegroundColor Yellow
 az account set --subscription=$subscriptionName
 
-# Create resource group name
-Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
-az group create `
-    --name=$resourceGroupName `
-    --location=$resourceGroupLocaltion `
-    --output=jsonc
+$aksRgExists = az group exists --name $resourceGroupName
+
+Write-Host "$resourceGroupName exists : $aksRgExists"
+
+if ($aksRgExists -eq $false) {
+    # Create resource group name
+    Write-Host "Creating resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
+    az group create `
+        --name=$resourceGroupName `
+        --location=$resourceGroupLocaltion `
+        --output=jsonc
+
+}
 
 Write-Host "Creating Virtual Network"
 az network vnet create `
@@ -82,25 +89,34 @@ $aksSubnetID = $(az network vnet subnet show `
         --query id `
         -o tsv)
 
-# Create AKS cluster
-Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
-az aks create `
-    --resource-group=$resourceGroupName `
-    --name=$clusterName `
-    --node-count=$workerNodeCount `
-    --network-plugin azure `
-    --service-cidr 10.0.0.0/16 `
-    --dns-service-ip 10.0.0.10 `
-    --docker-bridge-address 172.17.0.1/16 `
-    --vnet-subnet-id $aksSubnetID `
-    --service-principal $appId `
-    --client-secret $password `
-    --enable-addons monitoring `
-    --attach-acr=$acrRegistryName `
-    --output=jsonc
+$aks = az aks show `
+    --name $clusterName `
+    --resource-group $resourceGroupName `
+    --query name | ConvertFrom-Json
 
-# --disable-rbac `
-# --enable-managed-identity `
+$aksCLusterExists = $aks.Length -gt 0
+
+if ($aksCLusterExists -eq $false) {
+    # Create AKS cluster
+    Write-Host "Creating AKS cluster $clusterName with resource group $resourceGroupName in region $resourceGroupLocaltion" -ForegroundColor Yellow
+    az aks create `
+        --resource-group=$resourceGroupName `
+        --name=$clusterName `
+        --node-count=$workerNodeCount `
+        --network-plugin azure `
+        --service-cidr 10.0.0.0/16 `
+        --dns-service-ip 10.0.0.10 `
+        --docker-bridge-address 172.17.0.1/16 `
+        --vnet-subnet-id $aksSubnetID `
+        --service-principal $appId `
+        --client-secret $password `
+        --enable-addons monitoring `
+        --attach-acr=$acrRegistryName `
+        --output=jsonc
+
+    # --disable-rbac `
+    # --enable-managed-identity `
+}
 
 # Enable virtual node add on
 Write-Host "Enabling Virtual Node addon for cluster $clusterName" -ForegroundColor Yellow
