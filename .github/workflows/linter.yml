@@ -53,7 +53,7 @@ jobs:
       #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   sonarCloudTrigger:
-    needs: build
+    # needs: build
     name: SonarCloud Trigger
     runs-on: ubuntu-latest
     steps:
