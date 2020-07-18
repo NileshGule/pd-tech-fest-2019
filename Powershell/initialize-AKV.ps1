@@ -54,7 +54,7 @@ $aks = (az aks show `
 Write-Host "Retrieving the existing Azure Identity..."
 $existingIdentity = (az resource list `
         -g $aks.nodeResourceGroup `
-        --query "[?contains(name, 'aksmqCluster-agentpool')]")  | ConvertFrom-Json
+        --query "[?contains(name, '$clusterName-agentpool')]")  | ConvertFrom-Json
 
 $identity = az identity show `
     --name $existingIdentity.name `
