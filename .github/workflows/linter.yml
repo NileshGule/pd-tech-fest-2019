@@ -45,3 +45,6 @@ jobs:
       ################################
       - name: Lint Code Base
         uses: docker://github/super-linter:v2.1.1
+        
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v1.3
