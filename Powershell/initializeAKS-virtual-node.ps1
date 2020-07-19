@@ -33,7 +33,6 @@ if ($aksRgExists -eq $false) {
         --name=$resourceGroupName `
         --location=$resourceGroupLocaltion `
         --output=jsonc
-
 }
 
 Write-Host "Creating Virtual Network"
@@ -115,9 +114,6 @@ if ($aksCLusterExists -eq $false) {
         --enable-addons monitoring `
         --attach-acr=$acrRegistryName `
         --output=jsonc
-
-    # --disable-rbac `
-    # --enable-managed-identity `
 }
 
 # Enable virtual node add on

@@ -7,9 +7,6 @@ Write-Host "Installing KEDA on cluster" -ForegroundColor Cyan
 Write-Host "Installing RabbitMQ on cluster" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\deployRabbitMQ.ps1")
 
-# Write-Host "Installing RabbitMQ on cluster" -ForegroundColor Cyan
-# & ((Split-Path $MyInvocation.InvocationName) + "\update-service-principal.ps1")
-
 Write-Host "Installing TechTalks application on cluster" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\deployTechTalks-AKS-virtual-node.ps1")
 
