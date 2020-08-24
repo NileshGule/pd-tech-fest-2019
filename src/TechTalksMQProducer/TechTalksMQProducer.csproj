@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="RabbitMQ.Client" Version="5.0.1" />
-    <PackageReference Include="Bogus" Version="28.0.2"/>
+    <PackageReference Include="Bogus" Version="30.0.4"/>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
