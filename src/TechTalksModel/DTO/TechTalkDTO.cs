@@ -1,6 +1,6 @@
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+// using System.ComponentModel.DataAnnotations;
+// using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TechTalksModel.DTO
 {
@@ -13,5 +13,5 @@ namespace TechTalksModel.DTO
         public int LevelId { get; set; }
         public string LevelName { get; set; }
     }
-    
+
 }

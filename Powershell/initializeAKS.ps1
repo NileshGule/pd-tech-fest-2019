@@ -2,13 +2,13 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-kedaSeriesRG",
+    [string]$resourceGroupName = "demo-florida-meetup-aksRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
     [string]$clusterName = "aksmqCluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 2,
+    [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
     [string]$kubernetesVersion = "1.11.2",
     [parameter(Mandatory = $false)]
@@ -49,9 +49,8 @@ if ($aksCLusterExists -eq $false) {
         --name=$clusterName `
         --node-count=$workerNodeCount `
         --enable-managed-identity `
+        --attach-acr=$acrRegistryName `
         --output=jsonc
-    # --attach-acr=$acrRegistryName `
-
 }
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow

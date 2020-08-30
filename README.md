@@ -189,7 +189,7 @@ kubectl port-forward svc/rabbitmq 15672:15672
 
 http://localhost:15672/
 
-Login to the management UI using credentials as `user` and `PASSWORD`. Remember that these were set duing the installation of RabbitMQ services using Helm. If you are using any other user, please update the username and password accordingly.
+Login to the management UI using credentials as `user` and `PASSWORD`. Remember that these were set during the installation of RabbitMQ services using Helm. If you are using any other user, please update the username and password accordingly.
 
 ### 2.10 Generate load using `Postman`
 
