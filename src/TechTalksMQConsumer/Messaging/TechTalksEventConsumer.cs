@@ -64,7 +64,7 @@ namespace TechTalksProcessor.Messaging
                     consumer.Received += (TechTalksModel, ea) =>
                     {
                         Console.WriteLine("Inside RabbitMQ receiver...");
-                        var body = ea.Body;
+                        var body = ea.Body.Span;
                         var message = Encoding.UTF8.GetString(body);
                         var techTalk = JsonConvert.DeserializeObject<TechTalk>(message);
                         Console.WriteLine($"Received message {message}");
