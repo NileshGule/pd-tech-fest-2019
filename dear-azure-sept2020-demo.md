@@ -80,43 +80,13 @@ kubectl port-forward svc/rabbitmq 15672:15672
 
 ```
 
+Get pods related to KEDA
+
+```powershell
+
 kubectl get pods --namespace keda
 
-## Demo 2 - RabbitMQ consumer
-
-### Provision AKS cluster named `rabbitmqCluster`
-
-Run the `[initializeAKS](Powershell\initializeAKS.ps1)` Powershell script to provision AKS Cluster
-
-```Powershell
-
-.\initializeAKS.ps1 `
--resourceGroupName "rabbitmq-rg" `
--clusterName "rabbitmqCluster"
-
-```
-
-Deploy RabbitMQ using `[deployRabbitMQ.ps1](Powershell\deployRabbitMQ.ps1)` Powershell script
-
-```powershell
-
-.\deployRabbitMQ.ps1
-
-```
-
-Deploy TechTalks using `[deployTechTalks-AKS.ps1](Powershell\deployTechTalks-AKS.ps1)` Powershell script
-
-```powershell
-
-.\deployTechTalks-AKS.ps1
-
-```
-
-Scale Kubernetes deployment manually
-
-```powershell
-
-kubectl scale deployment rabbitmq-consumer-deployment --replicas 5
+kubectl get crd --namespace keda
 
 ```
 
