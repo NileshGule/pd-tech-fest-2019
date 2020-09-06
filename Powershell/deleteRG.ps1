@@ -1,6 +1,6 @@
 Param(
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-kedaSeriesRG"
+    [string]$resourceGroupName = "demo-dear-azure-aksRG"
 )
 
 # Delete AKS cluster
