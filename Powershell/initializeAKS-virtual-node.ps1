@@ -6,7 +6,7 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "aksVNodeCluster",
+    [string]$clusterName = "aksVNodeliveDemoCluster",
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 1,
     [parameter(Mandatory = $false)]

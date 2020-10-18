@@ -2,18 +2,17 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-dear-azure-aksRG",
+    [string]$resourceGroupName = "demo-aksRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "aksCluster",
+    [string]$clusterName = "aksPreviewCluster",
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.11.2",
+    [string]$kubernetesVersion = "1.19.0",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
-
 )
 
 # Set Azure subscription name
@@ -50,7 +49,10 @@ if ($aksCLusterExists -eq $false) {
         --node-count=$workerNodeCount `
         --enable-managed-identity `
         --attach-acr=$acrRegistryName `
-        --output=jsonc
+        --output=jsonc `
+        --kubernetes-version=$kubernetesVersion `
+        --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
+
 }
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
