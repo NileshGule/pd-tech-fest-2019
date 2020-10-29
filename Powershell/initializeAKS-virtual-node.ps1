@@ -2,19 +2,19 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-dear-azure-vnodeRG",
+    [string]$resourceGroupName = "demo-ossconf-vnodeRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "aksVNodeliveDemoCluster",
+    [string]$clusterName = "oss-vnode-cluster",
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 1,
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry",
     [parameter(Mandatory = $false)]
-    [string]$acrRegistryResourceGroup = "acrResourceGroup"
-    # [parameter(Mandatory = $false)]
-    # [string]$kubernetesVersion = "1.11.2"
+    [string]$acrRegistryResourceGroup = "acrResourceGroup",
+    [parameter(Mandatory = $false)]
+    [string]$kubernetesVersion = "1.19.0"
 
 )
 
@@ -113,6 +113,8 @@ if ($aksCLusterExists -eq $false) {
         --client-secret $password `
         --enable-addons monitoring `
         --attach-acr=$acrRegistryName `
+        --kubernetes-version=$kubernetesVersion `
+        --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
         --output=jsonc
 }
 
