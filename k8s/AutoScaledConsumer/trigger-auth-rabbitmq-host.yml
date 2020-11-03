@@ -1,9 +1,10 @@
-apiVersion: keda.k8s.io/v1alpha1
+apiVersion: keda.sh/v1alpha1
 kind: TriggerAuthentication
 metadata:
-  name: trigger-auth-rabbitmq-host
+  name: keda-trigger-auth-rabbitmq-conn
+  namespace: default
 spec:
   secretTargetRef:
   - parameter: host
-    name: secrets-rabbitmq-host-connection
-    key: rabbitmq-connectionstring
+    name: keda-rabbitmq-secret
+    key: host

@@ -1,14 +1,12 @@
 ---
-apiVersion: keda.k8s.io/v1alpha1
+apiVersion: keda.sh/v1alpha1
 kind: ScaledObject
 metadata:
   name: rabbitmq-consumer-scaled-object
   namespace: default
-  labels:
-    deploymentName: rabbitmq-consumer-deployment
 spec:
   scaleTargetRef:
-    deploymentName: rabbitmq-consumer-deployment
+    name: rabbitmq-consumer-deployment
   pollingInterval: 60 # Optional. Default: 30 seconds
   # cooldownPeriod: 30 # Optional. Default: 300 seconds
   minReplicaCount: 0 # Optional. Default: 0
@@ -18,5 +16,7 @@ spec:
       metadata:
         queueName: hello
         queueLength: "5"
+        protocol: amqp
       authenticationRef:
-        name: trigger-auth-rabbitmq-host
+        name: keda-trigger-auth-rabbitmq-conn
+    
