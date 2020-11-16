@@ -15,8 +15,13 @@ kubectl create namespace keda
 #Helm 3 syntax
 helm install keda `
     kedacore/keda `
-    --version 2.0.0-rc2 `
+    --version 2.0.0-rc3 `
     --namespace keda
+
+# helm install keda `
+#     ~/Downloads/keda `
+#     --namespace keda
+    
 
 #Helm 2 syntax
 # helm install kedacore/keda-edge `

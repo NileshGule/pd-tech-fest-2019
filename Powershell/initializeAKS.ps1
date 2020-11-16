@@ -63,11 +63,11 @@ az aks get-credentials `
 
 Write-Host "Successfully created cluster $clusterName with $workerNodeCount node(s)" -ForegroundColor Green
 
-Write-Host "Creating cluster role binding for Kubernetes dashboard" -ForegroundColor Green
+# Write-Host "Creating cluster role binding for Kubernetes dashboard" -ForegroundColor Green
 
-kubectl create clusterrolebinding kubernetes-dashboard `
-    -n kube-system `
-    --clusterrole=cluster-admin `
-    --serviceaccount=kube-system:kubernetes-dashboard
+# kubectl create clusterrolebinding kubernetes-dashboard `
+#     -n kube-system `
+#     --clusterrole=cluster-admin `
+#     --serviceaccount=kube-system:kubernetes-dashboard
 
 Set-Location ~/projects/pd-tech-fest-2019/Powershell
