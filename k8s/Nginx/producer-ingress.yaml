@@ -14,6 +14,6 @@ spec:
       paths:
       - backend:
           serviceName: rabbitmq-producer-service
-          servicePort: 8080
+          servicePort: 80
         path: /techtalksapi
         

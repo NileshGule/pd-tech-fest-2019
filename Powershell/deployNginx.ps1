@@ -5,11 +5,11 @@ helm repo update
 
 Write-Host "Initializing NGINX Ingress on AKS cluster $clusterName" -ForegroundColor Green
 
-kubectl create namespace ingress-basic
+# kubectl create namespace ingress-basic
 
 # Use Helm to deploy an NGINX ingress controller
 helm install nginx-ingress ingress-nginx/ingress-nginx `
-    --namespace ingress-basic `
+    --namespace default `
     --set controller.replicaCount=2 `
     --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux `
     --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux `
