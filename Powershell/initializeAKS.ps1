@@ -2,11 +2,11 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-ossconf",
+    [string]$resourceGroupName = "demo-nginxRG",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "ossConfCluster",
+    [string]$clusterName = "nginxCluster",
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
@@ -48,10 +48,10 @@ if ($aksCLusterExists -eq $false) {
         --name=$clusterName `
         --node-count=$workerNodeCount `
         --enable-managed-identity `
-        --attach-acr=$acrRegistryName `
         --output=jsonc `
         --kubernetes-version=$kubernetesVersion `
         --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
+        --attach-acr=$acrRegistryName `
 
 }
 # Get credentials for newly created cluster
