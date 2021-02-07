@@ -53,6 +53,11 @@ if ($aksCLusterExists -eq $false) {
         --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
         --attach-acr=$acrRegistryName `
 
+    #check the status of last command
+    if (!$?) {
+        Write-Error "Error creating ASK cluster" -ErrorAction Stop
+    }
+
 }
 # Get credentials for newly created cluster
 Write-Host "Getting credentials for cluster $clusterName" -ForegroundColor Yellow
