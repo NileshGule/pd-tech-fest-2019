@@ -4,8 +4,8 @@ kind: Service
 metadata:
   name: rabbitmq-producer-service
 spec:
-  # type: LoadBalancer
-  type: ClusterIP
+  type: LoadBalancer
+  # type: ClusterIP
   ports:
     - port: 80
   selector:

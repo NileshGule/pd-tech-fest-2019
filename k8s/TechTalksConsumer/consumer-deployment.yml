@@ -32,7 +32,14 @@ spec:
             - name: RABBITMQ_PASSWORD
               value: "PASSWORD"
             - name: RABBITMQ_BATCH_SIZE
-              value: "150"
+              value: "50"
+          resources:
+            requests:
+              cpu: "10m" #1% of a core
+              memory: "150Mi"
+            limits:
+              cpu: "50m" #5% of a core
+              memory: "400Mi"
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

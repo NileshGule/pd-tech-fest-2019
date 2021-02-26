@@ -35,6 +35,13 @@ spec:
             # - containerPort: 8080
             - containerPort: 80
               protocol: TCP
+          resources:
+            requests:
+              cpu: "10m" #1% of a core
+              memory: "200Mi"
+            limits:
+              cpu: "50m" #5% of a core
+              memory: "500Mi"
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
