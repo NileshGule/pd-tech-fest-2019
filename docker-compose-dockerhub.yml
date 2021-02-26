@@ -2,13 +2,13 @@ version: "3"
 
 services:
   techtalks.producer:
-    image: nileshgule/techtalksproducer:rabbitmq-keda-3.1
+    image: nileshgule/techtalksproducer:rabbitmq-keda-5.0
     build:
       context: src
       dockerfile: Dockerfile-TechTalksMQProducer
 
   techtalks.consumer:
-    image: nileshgule/techtalksconsumer:rabbitmq-keda-3.1
+    image: nileshgule/techtalksconsumer:rabbitmq-keda-5.0
     build:
       context: src
       dockerfile: Dockerfile-TechTalksMQConsumer
