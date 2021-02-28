@@ -32,7 +32,7 @@ spec:
             - name: RABBITMQ_PASSWORD
               value: "PASSWORD"
             - name: RABBITMQ_BATCH_SIZE
-              value: "50"
+              value: "75"
           resources:
             requests:
               cpu: "10m" #1% of a core

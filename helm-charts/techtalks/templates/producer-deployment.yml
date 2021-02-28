@@ -25,14 +25,14 @@ spec:
             # - name: ASPNETCORE_URLS
             #   value: http://0.0.0.0:8080
             - name: RABBITMQ_HOST_NAME
-              value: "rabbitmq"
+              value: "{{ .Values.rabbitmq.hostname}}"
             - name: RABBITMQ_USER_NAME
-              value: "user"
+              value: "{{ .Values.rabbitmq.username}}"
             - name: RABBITMQ_PASSWORD
-              value: "PASSWORD"
+              value: "{{ .Values.rabbitmq.password}}"
           ports:
             # - containerPort: 8080
-            - containerPort: 80
+            - containerPort: {{ .Values.techtalksproducer.containerPort }}
               protocol: TCP
           resources:
             requests:
