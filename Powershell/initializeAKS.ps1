@@ -2,7 +2,7 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-puneug",
+    [string]$resourceGroupName = "demo-puneug-rg",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
@@ -10,7 +10,7 @@ Param(
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.19.7",
+    [string]$kubernetesVersion = "1.21.1",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
 )
@@ -50,8 +50,8 @@ if ($aksCLusterExists -eq $false) {
         --enable-managed-identity `
         --output=jsonc `
         --kubernetes-version=$kubernetesVersion `
-        --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
-        --attach-acr=$acrRegistryName `
+        --attach-acr=$acrRegistryName 
+        # --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
 
     #check the status of last command
     if (!$?) {

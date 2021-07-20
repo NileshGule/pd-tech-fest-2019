@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: rabbitmq-producer-deployment-copy
+  # namespace: voxxed-days-2018sg
+  labels:
+    run: rabbitmq-producer-copy
+
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: rabbitmq-producer-copy
+
+  template:
+    metadata:
+      labels:
+        run: rabbitmq-producer-copy
+    spec:
+      containers:
+        - name: techtalksproducer-copy
+          image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-5.0
+          # image: nileshgule/techtalksproducer:rabbitmq-keda-5.0
+          env:
+            # - name: ASPNETCORE_URLS
+            #   value: http://0.0.0.0:8080
+            - name: RABBITMQ_HOST_NAME
+              value: "rabbitmq"
+            - name: RABBITMQ_USER_NAME
+              value: "user"
+            - name: RABBITMQ_PASSWORD
+              value: "PASSWORD"
+          ports:
+            # - containerPort: 8080
+            - containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
