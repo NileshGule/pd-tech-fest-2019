@@ -246,7 +246,7 @@ config:
     
     # CRI Parser
     [PARSER]
-        # http://rubular.com/r/tjUt3Awgg4
+        # http://rubular.com/r/tjUt3Aw  gg4
         Name cri
         Format regex
         Regex ^(?<time>[^ ]+) (?<stream>stdout|stderr) (?<logtag>[^ ]*) (?<message>.*)$
