@@ -21,11 +21,11 @@ Write-Host "Starting deployment of Fluent-bit using Helm" -ForegroundColor Yello
 
 helm repo add fluent https://fluent.github.io/helm-charts
 
-# helm install fluent-bit fluent/fluent-bit `
-# --values ../k8s/EFK/fluentbit-deamonset.yaml
-
 helm install fluent-bit fluent/fluent-bit `
-    --values fluentbit-deamonset.yaml
+--values ../k8s/EFK/fluentbit-deamonset.yaml
+
+# helm install fluent-bit fluent/fluent-bit `
+#     --values fluentbit-deamonset.yaml
 
 Write-Host "Deployment of Fluent-bit using Helm completed successfully" -ForegroundColor Yellow
 
