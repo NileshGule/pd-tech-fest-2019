@@ -182,12 +182,12 @@ config:
         HTTP_Port {{ .Values.service.port }}
         Health_Check On
 
+  # multiline.parser cri
   ## https://docs.fluentbit.io/manual/pipeline/inputs
   inputs: |
     [INPUT]
         Name tail
         Path /var/log/containers/*.log
-        multiline.parser cri
         Parser cri
         Tag kube.*
         Mem_Buf_Limit 5MB
@@ -215,21 +215,23 @@ config:
         Name es
         Match kube.*
         Host elasticsearch-master
-        Logstash_Format Off
+        Logstash_Format On
         Retry_Limit False
         Trace_Error On
         Logstash_Prefix kube
         Replace_Dots On
+        Buffer_Size False
 
     [OUTPUT]
         Name es
         Match host.*
         Host elasticsearch-master
-        Logstash_Format Off
+        Logstash_Format On
         Logstash_Prefix node
         Retry_Limit False
         Trace_Error On
         Replace_Dots On
+        Buffer_Size False
 
   ## https://docs.fluentbit.io/manual/pipeline/parsers
   customParsers: |
