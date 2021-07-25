@@ -192,12 +192,14 @@ config:
         Tag kube.*
         Mem_Buf_Limit 5MB
         Skip_Long_Lines On
+        Refresh_Interval  10
 
     [INPUT]
         Name systemd
         Tag host.*
         Systemd_Filter _SYSTEMD_UNIT=kubelet.service
         Read_From_Tail On
+        Refresh_Interval  10
 
   ## https://docs.fluentbit.io/manual/pipeline/filters
   filters: |
