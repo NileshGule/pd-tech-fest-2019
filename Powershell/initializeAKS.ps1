@@ -2,11 +2,11 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-puneug-rg",
+    [string]$resourceGroupName = "demo-monitoring-rg",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "puneugCluster",
+    [string]$clusterName = "monitoringCluster",
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
