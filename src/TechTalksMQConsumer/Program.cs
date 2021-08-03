@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prometheus;
+using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,6 +13,9 @@ namespace TechTalksMQProcessor
 
         static void Main(string[] args)
         {
+            var metricServer = new MetricServer(port:8080);
+            metricServer.Start();
+
             ConfigureEnvironment();
             var serviceProvider = ConfigureServices();
 

@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using TechTalksAPI.Messaging;
 
 using Microsoft.Extensions.Hosting;
+using Prometheus;
 
 namespace TechTalksAPI
 {
@@ -43,6 +44,9 @@ namespace TechTalksAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            // Expose deault Prometheus Metrics
+            app.UseMetricServer();
 
             app.UseEndpoints(endpoints =>
             {

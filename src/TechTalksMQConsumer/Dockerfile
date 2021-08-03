@@ -6,7 +6,7 @@ WORKDIR /app
 COPY TechTalksMQConsumer /TechTalksMQConsumer/
 COPY TechTalksModel /TechTalksModel/
 
-# COPY NuGet.config ./
+COPY NuGet.config ./
 
 WORKDIR /TechTalksMQConsumer
 RUN dotnet restore
