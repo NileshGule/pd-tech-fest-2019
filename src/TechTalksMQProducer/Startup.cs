@@ -45,12 +45,16 @@ namespace TechTalksAPI
 
             app.UseRouting();
 
+            app.UseHttpMetrics();
+
             // Expose deault Prometheus Metrics
-            app.UseMetricServer();
+            // app.UseMetricServer();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                
+                endpoints.MapMetrics();
             });
 
         }

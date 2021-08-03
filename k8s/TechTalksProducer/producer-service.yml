@@ -8,5 +8,12 @@ spec:
   # type: ClusterIP
   ports:
     - port: 80
+      targetPort: 80
+      name: http-default-port
+      protocol: TCP
+    - name: http-traffic
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
   selector:
-    run: rabbitmq-producer
+    run: rabbitmq-producer    
