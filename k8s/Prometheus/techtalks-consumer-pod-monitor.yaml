@@ -1,0 +1,12 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: techtalks-consumer-pod-monitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      run: rabbitmq-consumer
+  podMetricsEndpoints:
+  - port: metrics-port
