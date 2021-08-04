@@ -5,4 +5,4 @@ scrape_configs:
 - job_name: techtalks-producer-scraper
   honor_labels: true
   static_configs:
-  - targets: ['rabbitmq-producer-service']
+  - targets: ['rabbitmq-producer-service:80']

@@ -12,5 +12,6 @@ spec:
   namespaceSelector:
     any: true
   endpoints:
-    - port: http-default-port
-      path: "/metrics"
+    - port: http-port
+      path: /metrics
+      interval: 15s
