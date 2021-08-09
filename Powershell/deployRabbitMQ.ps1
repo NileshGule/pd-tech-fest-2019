@@ -5,11 +5,12 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 helm repo update
 
-helm install rabbitmq `
+helm upgrade --install rabbitmq `
     --version 8.15.2 `
     --set auth.username=user `
     --set auth.password=PASSWORD `
     --set auth.erlangCookie=c2VjcmV0Y29va2ll `
+    --set metrics.enabled=true `
     bitnami/rabbitmq
 # azure-marketplace/rabbitmq
     
