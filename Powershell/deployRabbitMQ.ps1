@@ -15,3 +15,6 @@ helm upgrade --install rabbitmq `
 # azure-marketplace/rabbitmq
     
 Write-Host "Deployment of RabbitMQ using Helm completed successfully" -ForegroundColor Yellow
+
+# Refer to the rabbitmq helm chart docuemntation for parameters nad more details
+# https://github.com/bitnami/charts/tree/master/bitnami/rabbitmq/#installing-the-chart
