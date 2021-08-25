@@ -5,6 +5,7 @@ metadata:
   name: rabbitmq-producer-deployment
   labels:
     run: rabbitmq-producer
+    app: techtalks
 
 spec:
   replicas: 2
@@ -16,9 +17,7 @@ spec:
     metadata:
       labels:
         run: rabbitmq-producer
-      annotations:
-        prometheus.io/scrape: "true"
-        prometheus.io/port: "80"
+        app: techtalks
     spec:
       containers:
         - name: techtalksproducer

@@ -75,9 +75,9 @@ Replace the load balancer IP
 
 ```bash
 
-for i in `seq 1 2000`; do curl http://20.44.227.76:8080/api/v1/speakers/; done
+for i in `seq 1 2000`; do curl http://20.197.74.200:8080/api/v1/speakers/; done
 
-for i in `seq 1 2000`; do curl http://20.44.227.76:8080/api/v1/sessions/; done
+for i in `seq 1 2500`; do curl http://20.197.74.200:8080/api/v1/sessions/; done
 
 ```
 

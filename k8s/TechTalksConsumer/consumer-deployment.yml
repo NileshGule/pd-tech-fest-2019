@@ -5,7 +5,7 @@ metadata:
   name: rabbitmq-consumer-deployment
   labels:
     run: rabbitmq-consumer
-
+    app: techtalks
 spec:
   replicas: 1
   selector:
@@ -41,7 +41,6 @@ spec:
               cpu: "50m" #5% of a core
               memory: "400Mi"
           ports:
-            # - containerPort: 8080
             - containerPort: 8080
               protocol: TCP
               name: metrics-port
