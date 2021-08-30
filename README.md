@@ -275,7 +275,7 @@ Here are the links to slides from the presentation
 
 - [![Microsoft Reactor Bengaluru - Monitor Kubernetes cluster using open source tools Prometheus and Grafana - 14 August 2021](/images/msreactor-bengaluru-14-Aug-2021.jpg)](https://youtu.be/Lv0D3fdwJhU)
 
-- [![Pune User Group - How to manage event driven workloads on Kubernetes using KEDA - 27 February 2021](/images/pune-user-group-27-Feb-2021.png)](https://youtu.be/a1pkrCUuKD0)
+- [![Pune User Group - How to manage event driven workloads on Kubernetes using KEDA - 27 February 2021](/images/pune-user-group-27-Feb-2021.PNG)](https://youtu.be/a1pkrCUuKD0)
 
 - [![OSS Days - Serverless Event Driven Containers with KEDA - 30 October 2020](/images/oss-days-30-october-2020.jfif)](https://youtu.be/-bAlWBbRtEw?t=11049)
 
