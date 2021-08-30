@@ -268,3 +268,17 @@ Here are the links to slides from the presentation
 ### Speakerdeck
 
 [![Scaling containers with KEDA](/images/speakerdeck.PNG)](https://speakerdeck.com/nileshgule/scaling-containers-with-keda)
+
+## Different talks where this repo is used
+
+- [![Azure Singapore - Monitor Kubernetes cluster using Prometheus and Grafana - 19 August 2021](/images/azure-singapore-19-august-2021.PNG)](https://youtu.be/t8uenUoI4Mw)
+
+- [![Microsoft Reactor Bengaluru - Monitor Kubernetes cluster using open source tools Prometheus and Grafana - 14 August 2021](/images/msreactor-bengaluru-14-Aug-2021.jpg)](https://youtu.be/Lv0D3fdwJhU)
+
+- [![Pune User Group - How to manage event driven workloads on Kubernetes using KEDA - 27 February 2021](/images/pune-user-group-27-Feb-2021.png)](https://youtu.be/a1pkrCUuKD0)
+
+- [![OSS Days - Serverless Event Driven Containers with KEDA - 30 October 2020](/images/oss-days-30-october-2020.jfif)](https://youtu.be/-bAlWBbRtEw?t=11049)
+
+- [![OSS Days - Serverless Event Driven Containers with KEDA - Edureca - 30 October 2020](/images/oss-days-edureca-30-october-2020.PNG)](https://youtu.be/a_gqfKXK874?t=11141)
+
+
