@@ -49,3 +49,13 @@ Note: replace IP address with the service load balancer external IP
 .\deployAutoScaler.ps1
 
 ```
+
+## Watch autoscaling in action
+
+```powershell
+
+kubectl get deploy --watch
+
+kubectl get pods --watch
+
+```
