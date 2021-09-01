@@ -54,7 +54,7 @@ namespace TechTalksAPI.Controllers
 
             var levelNames = new List<string>()
             {
-                "100 - Beginer",
+                "100 - Beginner",
                 "200 - Intermediate",
                 "300 - Advanced",
                 "400 - Expert"
