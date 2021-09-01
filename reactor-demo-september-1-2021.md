@@ -51,6 +51,14 @@ Note: replace IP address with the service load balancer external IP
 
 ```
 
+## Verify KEDA Custom Resource Definitions
+
+```powershell
+
+kubectl get crd
+
+```
+
 ## Watch autoscaling in action
 
 ```powershell
@@ -58,5 +66,15 @@ Note: replace IP address with the service load balancer external IP
 kubectl get deploy --watch
 
 kubectl get pods --watch
+
+```
+
+## Describe scaled object to verify correct settings
+
+```powershell
+
+kubectl get scaledobject
+
+kubectl describe scaledobject rabbitmq-consumer-scaled-object
 
 ```
