@@ -1,5 +1,6 @@
 # Steps by step guide for Reactor Demo on Event Driven Autoscaling with KEDA
 
+The powershell scripts are available under [Powershell](powershell) folder
 ## Initialize AKS cluster
 
 ```powershell
