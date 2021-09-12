@@ -10,12 +10,11 @@ helm repo update
 
 Write-Host "Initializing KEDA on AKS cluster $clusterName" -ForegroundColor Green
 
-kubectl create namespace keda
-
 #Helm 3 syntax
-helm install keda `
+helm upgrade --install keda `
     kedacore/keda `
     --version 2.4.0 `
+    --create-namespace `
     --namespace keda
 
 # helm install keda `
