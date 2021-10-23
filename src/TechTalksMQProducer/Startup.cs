@@ -7,6 +7,7 @@ using TechTalksAPI.Messaging;
 
 using Microsoft.Extensions.Hosting;
 using Prometheus;
+using Sentry.AspNetCore;
 
 namespace TechTalksAPI
 {
@@ -44,6 +45,8 @@ namespace TechTalksAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSentryTracing();
 
             app.UseHttpMetrics();
 
