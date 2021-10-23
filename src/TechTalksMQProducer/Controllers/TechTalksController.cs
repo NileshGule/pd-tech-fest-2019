@@ -25,6 +25,8 @@ namespace TechTalksAPI.Controllers
         {
             List<TechTalk> techTalks = new List<TechTalk>();
 
+            throw new UnauthorizedAccessException("Throwing sample message for Sentry");
+
             return techTalks;
         }
 
