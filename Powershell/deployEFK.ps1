@@ -40,6 +40,7 @@ Write-Host "Starting deployment of Kibana using Helm" -ForegroundColor Yellow
 helm install kibana `
     --set elasticsearch.hosts[0]=elasticsearch-master `
     --set elasticsearch.port=9200 `
+    --version 7.2.5 `
     bitnami/kibana 
 
 Write-Host "Deployment of Kibana using Helm completed successfully" -ForegroundColor Yellow
