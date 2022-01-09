@@ -31,7 +31,7 @@ Write-Host "Deployment of Fluent-bit using Helm completed successfully" -Foregro
 
 #kubectl port-forward --namespace default svc/efk-coordinating-only 9200:9200
 #kubectl get all -l "app.kubernetes.io/name=fluentd,app.kubernetes.io/instance=fluentd"
-# kubectl port-forward --namespace default svc/efk-kibana 5601:5601
+# kubectl port-forward --namespace default svc/kibana 5601:5601
 
 # kubectl apply -f https://github.com/fluent/fluentd-kubernetes-daemonset/blob/master/fluentd-daemonset-elasticsearch.yaml
 
