@@ -185,15 +185,15 @@ http://20.198.210.175/api/TechTalks/Generate?numberOfMessages=5000
 
 ## All the links used during the demo
 
-## Github repositories
+### Github repositories
 - [Tech Talks .Net app demo code](https://github.com/NileshGule/pd-tech-fest-2019)
 - [Springboot conference app demo code](https://github.com/NileshGule/spring-boot-conference-app/tree/mssql-server)
 
-## Slidedecks
+### Slidedecks
 - [Slideshare](https:/www.slideshare.net/nileshgule/)
 - [Speakerdeck](https://www.speakerdeck.com/NileshGule/)
 
-## other links
+### other links
 - [Azure Singapore sessions](https://bit.ly/AzureSingaporeSessions)
 
 - [CNCF trail](https://github.com/cncf/trailmap)
