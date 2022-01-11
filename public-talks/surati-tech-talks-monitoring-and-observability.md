@@ -24,7 +24,7 @@ Run the deployEFK Powershell script which will deploy Elasticsearch, FluentD and
 
 ## Access Kibana UI 
 
-``code
+```code
 
 kubectl port-forward --namespace default svc/kibana 5601:5601
 
