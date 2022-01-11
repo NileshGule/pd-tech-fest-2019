@@ -180,3 +180,31 @@ for ($i =0; $i -lt 10; $i++)
 http://20.198.210.175/api/TechTalks/Generate?numberOfMessages=5000
 
 ```
+
+---
+
+## All the links used during the demo
+
+## Github repositories
+- [Tech Talks .Net app demo code](https://github.com/NileshGule/pd-tech-fest-2019)
+- [Springboot conference app demo code](https://github.com/NileshGule/spring-boot-conference-app/tree/mssql-server)
+
+## Slidedecks
+- [Slideshare](https:/www.slideshare.net/nileshgule/)
+- [Speakerdeck](https://www.speakerdeck.com/NileshGule/)
+
+## other links
+- [Azure Singapore sessions](https://bit.ly/AzureSingaporeSessions)
+
+- [CNCF trail](https://github.com/cncf/trailmap)
+- [Elastic stack](https://www.elastic.co/elastic-stack/)
+- [Kibana](https://www.elastic.co/kibana/)
+- [Fluentbit](https://fluentbit.io/)
+- [Prometheus](https://prometheus.io/)
+- [Grafana](https://grafana.com/)
+- [Kube prometheus stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+- [Hussem Dellai Prometheus & Grafana series](https://www.youtube.com/playlist?list=PLpbcUe4chE7-HuslXKj1MB10ncorfzEGa)
+- [Sentry docs](https://docs.sentry.io/)
+- [Sentry Architecture](https://develop.sentry.dev/architecture/)
+
+
