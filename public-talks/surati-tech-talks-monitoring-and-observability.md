@@ -156,11 +156,11 @@ http://20.198.210.175/metrics
 
 for i in `seq 1 3000`; do curl http://40.119.248.189:8080/api/v1/speakers/; done
 
-for i in `seq 1 1500`; do curl http://40.119.248.189:8080/api/v1/sessions/; done
+for i in `seq 1 1500`; do curl http://20.44.232.28:8080/api/v1/sessions/; done
 
-for i in `seq 1 20`; do curl http://40.119.248.189:8080/api/v1/crash/boom; done
+for i in `seq 1 20`; do curl http://20.44.232.28:8080/api/v1/crash/boom; done
 
-40.119.248.189
+20.44.232.28
 
 ```
 

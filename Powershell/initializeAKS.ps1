@@ -2,15 +2,15 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$subscriptionName = "Microsoft Azure Sponsorship",
     [parameter(Mandatory = $false)]
-    [string]$resourceGroupName = "demo-live-suratitechtalks",
+    [string]$resourceGroupName = "demo-azure-singapore-rg",
     [parameter(Mandatory = $false)]
     [string]$resourceGroupLocaltion = "South East Asia",
     [parameter(Mandatory = $false)]
-    [string]$clusterName = "suratitechtalks-live-demo-cluster",
+    [string]$clusterName = "azure-singapore-cluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 3,
+    [int16]$workerNodeCount = 2,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.21.2",
+    [string]$kubernetesVersion = "1.22.4",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
 )
