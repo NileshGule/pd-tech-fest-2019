@@ -1,0 +1,14 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: Bogus
+    versions:
+    - 32.0.2
+    - 32.1.1
+    - 33.0.1
