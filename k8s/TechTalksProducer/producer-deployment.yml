@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: techtalksproducer
-          image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-5.0
+          image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-6.0
           # image: nileshgule/techtalksproducer:rabbitmq-keda-5.0
           env:
             # - name: ASPNETCORE_URLS

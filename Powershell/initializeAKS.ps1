@@ -8,7 +8,7 @@ Param(
     [parameter(Mandatory = $false)]
     [string]$clusterName = "azure-singapore-cluster",
     [parameter(Mandatory = $false)]
-    [int16]$workerNodeCount = 2,
+    [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
     [string]$kubernetesVersion = "1.22.4",
     [parameter(Mandatory = $false)]
