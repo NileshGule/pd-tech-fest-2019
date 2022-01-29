@@ -3,7 +3,7 @@
 ## Setup for Scaling .Net containers with event driven workloads talk
 ## Initialize AKS cluster with all KEDA related resources
 
-Run the `[deployAll](Powershell/deployAll.ps1)` Powershell script which setup everything from AKS cluster, RabbitMQ, KEDA, TechTalks services etc.
+Run the `[deployAll](/Powershell/deployAll.ps1)` Powershell script which setup everything from AKS cluster, RabbitMQ, KEDA, TechTalks services etc.
 
 ```code
 
