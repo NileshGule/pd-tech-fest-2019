@@ -97,3 +97,11 @@ kubectl delete hpa rabbitmq-consumer-deployment
 kubectl get crd
 
 ```
+
+## Delete KEDA Autoscaler
+
+```powershell
+
+.\teardownAutoScaler.ps1
+
+```
