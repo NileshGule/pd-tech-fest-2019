@@ -7,8 +7,14 @@ services:
       context: src
       dockerfile: Dockerfile-TechTalksMQProducer
 
+  # techtalks.consumer:
+  #   image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-6.0
+  #   build:
+  #     context: src
+  #     dockerfile: Dockerfile-TechTalksMQConsumer
+
   techtalks.consumer:
     image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-6.0
     build:
       context: src
-      dockerfile: Dockerfile-TechTalksMQConsumer
+      dockerfile: Dockerfile-TechTalksConsumer
