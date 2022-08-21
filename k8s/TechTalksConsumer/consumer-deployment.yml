@@ -20,12 +20,12 @@ spec:
       annotations:
         dapr.io/enabled: "true"
         dapr.io/app-id: "rabbitmq-consumer"
-        dapr.io/app-port: "8080"
+        dapr.io/app-port: "80"
         dapr.io/config: "zipkin"
     spec:
       containers:
         - name: rabbitmq-consumer
-          image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-5.0
+          image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:dapr
           # image: nileshgule/techtalksconsumer:rabbitmq-keda-5.0
           env:
             - name: ASPNETCORE_ENVIRONMENT
@@ -46,9 +46,11 @@ spec:
               cpu: "50m" #5% of a core
               memory: "400Mi"
           ports:
-            - containerPort: 8080
+            # - containerPort: 8080
+            #   protocol: TCP
+            #   name: metrics-port
+            - containerPort: 80
               protocol: TCP
-              name: metrics-port
           imagePullPolicy: Always
       restartPolicy: Always
       terminationGracePeriodSeconds: 30

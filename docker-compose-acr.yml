@@ -2,7 +2,7 @@ version: "3"
 
 services:
   techtalks.producer:
-    image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-6.0
+    image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:dapr
     build:
       context: src
       dockerfile: Dockerfile-TechTalksMQProducer
@@ -14,7 +14,7 @@ services:
   #     dockerfile: Dockerfile-TechTalksMQConsumer
 
   techtalks.consumer:
-    image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:rabbitmq-keda-6.0
+    image: ngacrregistry.azurecr.io/nileshgule/techtalksconsumer:dapr
     build:
       context: src
       dockerfile: Dockerfile-TechTalksConsumer

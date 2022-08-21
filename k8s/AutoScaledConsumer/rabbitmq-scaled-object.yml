@@ -13,7 +13,7 @@ spec:
   triggers:
     - type: rabbitmq
       metadata:
-        queueName: hello
+        queueName: rabbitmq-consumer-techtalks
         queueLength: "5"
         protocol: amqp
       authenticationRef:

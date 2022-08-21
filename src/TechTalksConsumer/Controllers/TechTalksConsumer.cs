@@ -11,17 +11,28 @@ namespace TechTalksAPI.Controllers
     [Route("api/[controller]")]
     public class TechTalksConsumerController : Controller
     {
-        public TechTalksConsumerController()
-        {
-
-        }
-
         // POST: api/TechTalksConsumer
         [HttpPost("process")]
         [Topic("rabbitmq-pubsub", "techtalks")]
         public void Process([FromBody] TechTalk techTalk)
         {
-            Console.WriteLine("Received message: " + techTalk.TechTalkName);
+            Thread.Sleep(2 * 1000);
+
+            LogTechTalkDetails(techTalk);
+        }
+
+        private void LogTechTalkDetails(TechTalk techTalk)
+        {
+            Console.WriteLine();
+            Console.WriteLine("----------");
+            Console.WriteLine($"Tech Talk Id : {techTalk.Id}");
+            Console.WriteLine($"Tech Talk Name : {techTalk.TechTalkName}");
+            Console.WriteLine($"Category : {techTalk.CategoryId}");
+            Console.WriteLine($"Level : {techTalk.LevelId}");
+            Console.WriteLine("----------");
+            Console.WriteLine();
+
+            Console.WriteLine($"TechTalk persisted successfully at {DateTime.Now.ToLongTimeString()}");
         }
 
     }
