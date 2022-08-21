@@ -10,7 +10,7 @@ Param(
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.22.4",
+    [string]$kubernetesVersion = "1.24.0",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
 )
