@@ -4,6 +4,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TechTalksProcessor.Messaging;
+using Dapr;
 
 namespace TechTalksMQProcessor
 {
@@ -44,6 +45,8 @@ namespace TechTalksMQProcessor
         {
             var services = new ServiceCollection();
             services.AddOptions();
+
+            // services.AddDaprClient();
 
             services.AddSingleton<IConfiguration>(provider => Configuration);
 

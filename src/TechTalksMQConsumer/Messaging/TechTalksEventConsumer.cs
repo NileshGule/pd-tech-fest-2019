@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using TechTalksModel;
 using System.Threading;
 using Microsoft.Extensions.Configuration;
+using Dapr.Client;
 
 namespace TechTalksProcessor.Messaging
 {

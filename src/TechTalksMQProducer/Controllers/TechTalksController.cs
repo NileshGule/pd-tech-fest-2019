@@ -33,7 +33,7 @@ namespace TechTalksAPI.Controllers
 
         // POST api/TechTalks/Generate?numberOfMessages=100
         [HttpGet("Generate")]
-        [Topic("rabbitmq-pubsub", "hello")]
+        
         public IActionResult GenerateTechTalks(int numberOfMessages)
         {
             var fakeDataCreator = new Faker();

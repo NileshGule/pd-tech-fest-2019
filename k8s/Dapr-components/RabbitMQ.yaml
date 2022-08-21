@@ -8,17 +8,11 @@ spec:
   metadata:
   - name: host
     value: "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672"
-  - name: consumerID
-    value: rabbitmq-consumer
   - name: durable
     value: true
   - name: deletedWhenUnused
     value: false
   - name: autoAck
-    value: false
-  - name: deliveryMode
-    value: 0
-  - name: requeueInFailure
     value: false
   - name: prefetchCount
     value: 50
@@ -26,22 +20,22 @@ spec:
     value: 0
   - name: concurrencyMode
     value: parallel
-  - name: publisherConfirm
-    value: false
-  - name: backOffPolicy
-    value: exponential
-  - name: backOffInitialInterval
-    value: 100
-  - name: backOffMaxRetries
-    value: 16
-  - name: enableDeadLetter # Optional enable dead Letter or not
-    value: true
-  - name: maxLen # Optional max message count in a queue
-    value: 3000
-  - name: maxLenBytes # Optional maximum length in bytes of a queue.
-    value: 10485760
-  - name: exchangeKind
-    value: fanout
+  # - name: publisherConfirm
+  #   value: false
+  # - name: backOffPolicy
+  #   value: exponential
+  # - name: backOffInitialInterval
+  #   value: 100
+  # - name: backOffMaxRetries
+  #   value: 16
+  # - name: enableDeadLetter # Optional enable dead Letter or not
+  #   value: true
+  # - name: maxLen # Optional max message count in a queue
+  #   value: 3000
+  # - name: maxLenBytes # Optional maximum length in bytes of a queue.
+  #   value: 10485760
+  # - name: exchangeKind
+  #   value: fanout
 # scopes:
 #   - rabbitmq-producer-service
 #   - rabbitmq-consumer

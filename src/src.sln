@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalksMQConsumer", "Tech
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalksMQProducer", "TechTalksMQProducer\TechTalksMQProducer.csproj", "{ABE0B3CA-523A-41EE-91EF-A0A9AE920625}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechTalksConsumer", "TechTalksConsumer\TechTalksConsumer.csproj", "{A2EF5E38-C4DB-4630-8E20-CFE670A16300}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,5 +60,17 @@ Global
 		{ABE0B3CA-523A-41EE-91EF-A0A9AE920625}.Release|x64.Build.0 = Release|Any CPU
 		{ABE0B3CA-523A-41EE-91EF-A0A9AE920625}.Release|x86.ActiveCfg = Release|Any CPU
 		{ABE0B3CA-523A-41EE-91EF-A0A9AE920625}.Release|x86.Build.0 = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|x64.Build.0 = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Debug|x86.Build.0 = Debug|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|x64.ActiveCfg = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|x64.Build.0 = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|x86.ActiveCfg = Release|Any CPU
+		{A2EF5E38-C4DB-4630-8E20-CFE670A16300}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

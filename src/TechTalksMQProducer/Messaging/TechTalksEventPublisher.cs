@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Threading;
 using RabbitMQ.Client;
 using Newtonsoft.Json;
 using TechTalksModel;
@@ -29,7 +31,7 @@ namespace TechTalksAPI.Messaging
             rabbitMQUserName = config.GetValue<string>("RABBITMQ_USER_NAME");
             rabbitMQPassword = config.GetValue<string>("RABBITMQ_PASSWORD");
             pubsubName = "rabbitmq-pubsub";
-            topicName = "hello";
+            topicName = "techtalks";
 
             Console.WriteLine("Configuration inititalized in constructor");
         }
@@ -66,7 +68,10 @@ namespace TechTalksAPI.Messaging
 
                 serializedTalks.ForEach(talk =>
                 {
-                    client.PublishEventAsync(pubsubName, topicName, talk);
+                    CancellationTokenSource source = new CancellationTokenSource();
+                    CancellationToken cancellationToken = source.Token;
+
+                    client.PublishEventAsync(pubsubName, topicName, talk, cancellationToken);
 
                     
 

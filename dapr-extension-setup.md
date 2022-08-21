@@ -23,3 +23,7 @@ az provider show -n Microsoft.KubernetesConfiguration -o table
 ## Install Dapr extension on AKS cluster
 
 Execute the [install-dapr-extension](/Powershell/install-dapr-extension.ps1) powershell script
+
+## Additional resources
+
+- [Zipkin Setup](https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/)

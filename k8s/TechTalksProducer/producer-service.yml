@@ -9,6 +9,7 @@ metadata:
     dapr.io/enabled: "true"
     dapr.io/app-id: "rabbitmq-producer-service"
     dapr.io/app-port: "80"
+    dapr.io/config: "zipkin"
 spec:
   type: LoadBalancer
   # type: ClusterIP
