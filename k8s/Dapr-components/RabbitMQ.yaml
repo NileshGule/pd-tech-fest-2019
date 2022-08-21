@@ -9,7 +9,7 @@ spec:
   - name: host
     value: "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672"
   - name: consumerID
-    value: "rabbitmq-consumer-techtalks"
+    value: "rabbitmq-consumer"
   - name: durable
     value: true
   - name: deletedWhenUnused
