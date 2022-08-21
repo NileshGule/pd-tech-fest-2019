@@ -34,12 +34,19 @@ namespace TechTalksProcessor.Messaging
 
         public void ConsumeMessage()
         {
-            var factory = new ConnectionFactory()
+            Console.WriteLine("Inside consume message");
+
+            using (var client = new DaprClientBuilder().Build())
             {
-                HostName = rabbitMQHostName,
-                UserName = rabbitMQUserName,
-                Password = rabbitMQPassword
-            };
+                
+                var topic = client.GetTopicClientAsync(topicName).Result;
+                var subscription = client.GetSubscriptionClientAsync(topicName, "techtalks").Result;
+                subscription.StartAsync((message) =>
+                {
+                    Console.WriteLine("Received message: " + message.Content.ToString());
+                    return Task.CompletedTask;
+                }).Wait();
+            }
 
             using (var connection = factory.CreateConnection())
             {
