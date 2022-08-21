@@ -154,7 +154,7 @@ http://20.198.210.175/metrics
 
 ```bash
 
-for i in `seq 1 3000`; do curl http://40.119.248.189:8080/api/v1/speakers/; done
+for i in `seq 1 3000`; do curl http://20.44.232.28:8080/api/v1/speakers/; done
 
 for i in `seq 1 1500`; do curl http://20.44.232.28:8080/api/v1/sessions/; done
 
