@@ -21,7 +21,7 @@ spec:
         dapr.io/enabled: "true"
         dapr.io/app-id: "rabbitmq-consumer"
         dapr.io/app-port: "8080"
-        dapr.io/config: "tracing"
+        dapr.io/config: "zipkin"
     spec:
       containers:
         - name: rabbitmq-consumer

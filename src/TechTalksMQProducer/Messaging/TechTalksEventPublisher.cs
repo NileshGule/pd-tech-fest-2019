@@ -57,16 +57,29 @@ namespace TechTalksAPI.Messaging
 
             Console.WriteLine("Serialized talks count: " + serializedTalks.Count);
 
-            using var client = new DaprClientBuilder().Build();
+            using (var client = new DaprClientBuilder().Build())
+            { 
+                Console.WriteLine($"Created Dapr client successfully");
 
-            Console.WriteLine($"Created Dapr client successfully");
+                Dictionary<string, string> queueMetadata = new Dictionary<string, string>();
+                queueMetadata.Add("routingKey", "hello");
 
-            serializedTalks.ForEach(talk =>
-            {
-                client.PublishEventAsync(pubsubName, topicName, talk);
+                serializedTalks.ForEach(talk =>
+                {
+                    client.PublishEventAsync(pubsubName, topicName, talk);
 
-                Console.WriteLine($"{talk} published to message queue");
-            });
+                    
+
+                    // client.PublishEventAsync(pubsubName, topicName, talk, queueMetadata);
+
+                // publish messages with routing key `keyA`, and these will be received by the above example.
+                // client.PublishEvent(context.Background(), pubsubName, topicName, talk, client.PublishEventWithMetadata(map[string]string{ "routingKey": "hello"}));
+
+                    Console.WriteLine($"{talk} published to message queue");
+                });
+
+                Console.WriteLine($"Client Type {client.GetType()}");
+            }
 
             // Console.WriteLine("Inside connection factory");
 
