@@ -18,11 +18,17 @@ spec:
       labels:
         run: rabbitmq-producer
         app: techtalks
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "rabbitmq-producer"
+        dapr.io/app-port: "80"
+        dapr.io/config: "tracing"
     spec:
       containers:
         - name: techtalksproducer
           image: ngacrregistry.azurecr.io/nileshgule/techtalksproducer:rabbitmq-keda-6.0
           # image: nileshgule/techtalksproducer:rabbitmq-keda-5.0
+          
           env:
             # - name: ASPNETCORE_URLS
             #   value: http://0.0.0.0:8080

@@ -17,6 +17,11 @@ spec:
       labels:
         run: rabbitmq-consumer
         app: rabbitmq-consumer
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "rabbitmq-consumer"
+        dapr.io/app-port: "8080"
+        dapr.io/config: "tracing"
     spec:
       containers:
         - name: rabbitmq-consumer
