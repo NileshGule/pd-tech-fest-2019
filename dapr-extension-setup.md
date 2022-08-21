@@ -27,3 +27,6 @@ Execute the [install-dapr-extension](/Powershell/install-dapr-extension.ps1) pow
 ## Additional resources
 
 - [Zipkin Setup](https://docs.dapr.io/operations/monitoring/tracing/setup-tracing/)
+- [Dapr pub Sub RabbitMQ example](https://docs.dapr.io/developing-applications/building-blocks/pubsub/howto-publish-subscribe/)
+- [RabbitMQ spec fields](https://v1-0.docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-rabbitmq/)
+- [Dapr setup extension for AKS](https://docs.dapr.io/developing-applications/integrations/azure/azure-kubernetes-service-extension/)
