@@ -8,6 +8,7 @@ using TechTalksAPI.Messaging;
 using Microsoft.Extensions.Hosting;
 using Prometheus;
 using Sentry.AspNetCore;
+using Dapr.AspNetCore;
 
 namespace TechTalksAPI
 {
@@ -41,6 +42,8 @@ namespace TechTalksAPI
             {
                 app.UseHsts();
             }
+
+            app.UseCloudEvents();
 
             app.UseHttpsRedirection();
 

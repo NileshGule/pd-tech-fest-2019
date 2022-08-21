@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechTalksAPI.Messaging;
 using TechTalksModel;
 using Bogus;
+using Dapr;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -32,6 +33,7 @@ namespace TechTalksAPI.Controllers
 
         // POST api/TechTalks/Generate?numberOfMessages=100
         [HttpGet("Generate")]
+        [Topic("rabbitmq-pubsub", "hello")]
         public IActionResult GenerateTechTalks(int numberOfMessages)
         {
             var fakeDataCreator = new Faker();

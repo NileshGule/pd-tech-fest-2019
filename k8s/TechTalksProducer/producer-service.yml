@@ -5,6 +5,11 @@ metadata:
   name: rabbitmq-producer-service
   labels:
     run: rabbitmq-producer
+  # annotations:
+  #   dapr.io/enabled: "true"
+  #   dapr.io/app-id: "rabbitmq-producer-service"
+  #   dapr.io/app-port: "80"
+  #   dapr.io/config: "tracing"
 spec:
   type: LoadBalancer
   # type: ClusterIP

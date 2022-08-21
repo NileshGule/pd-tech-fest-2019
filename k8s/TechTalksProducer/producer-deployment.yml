@@ -18,11 +18,7 @@ spec:
       labels:
         run: rabbitmq-producer
         app: techtalks
-      annotations:
-        dapr.io/enabled: "true"
-        dapr.io/app-id: "rabbitmq-producer"
-        dapr.io/app-port: "80"
-        dapr.io/config: "tracing"
+      
     spec:
       containers:
         - name: techtalksproducer

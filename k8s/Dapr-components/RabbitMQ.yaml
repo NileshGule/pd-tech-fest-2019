@@ -43,5 +43,5 @@ spec:
   - name: exchangeKind
     value: fanout
 scopes:
-  - rabbitmq-producer
+  - rabbitmq-producer-service
   - rabbitmq-consumer

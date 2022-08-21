@@ -5,8 +5,8 @@ using RabbitMQ.Client;
 using Newtonsoft.Json;
 using TechTalksModel;
 using TechTalksModel.DTO;
-using Bogus;
 using Microsoft.Extensions.Configuration;
+using Dapr.Client;
 
 namespace TechTalksAPI.Messaging
 {
@@ -19,67 +19,88 @@ namespace TechTalksAPI.Messaging
         private readonly string rabbitMQUserName;
         private readonly string rabbitMQPassword;
 
+        private readonly string pubsubName;
+
+        private readonly string topicName;
+
         public TechTalksEventPublisher(IConfiguration config)
         {
             rabbitMQHostName = config.GetValue<string>("RABBITMQ_HOST_NAME");
             rabbitMQUserName = config.GetValue<string>("RABBITMQ_USER_NAME");
             rabbitMQPassword = config.GetValue<string>("RABBITMQ_PASSWORD");
+            pubsubName = "rabbitmq-pubsub";
+            topicName = "hello";
+
+            Console.WriteLine("Configuration inititalized in constructor");
         }
 
         public void SendMessages(List<TechTalk> talks)
         {
-            Console.WriteLine("Inside send message");
+            Console.WriteLine("Inside send messages");
 
-            var factory = new ConnectionFactory()
+            // var factory = new ConnectionFactory()
+            // {
+            //     HostName = rabbitMQHostName,
+            //     UserName = rabbitMQUserName,
+            //     Password = rabbitMQPassword
+            // };
+
+            List<byte[]> serializedTalks = new List<byte[]>();
+
+            talks.ForEach(talk =>
             {
-                HostName = rabbitMQHostName,
-                UserName = rabbitMQUserName,
-                Password = rabbitMQPassword
-            };
+                serializedTalks.Add(
+                    Encoding.UTF8.GetBytes(
+                        JsonConvert.SerializeObject(talk)
+                        ));
+            });
 
-            Console.WriteLine("Inside connection factory");
+            Console.WriteLine("Serialized talks count: " + serializedTalks.Count);
 
-            using (var connection = factory.CreateConnection())
+            using var client = new DaprClientBuilder().Build();
+
+            Console.WriteLine($"Created Dapr client successfully");
+
+            serializedTalks.ForEach(talk =>
             {
-                Console.WriteLine("Inside connection");
+                client.PublishEventAsync(pubsubName, topicName, talk);
 
-                using (var channel = connection.CreateModel())
-                {
-                    Console.WriteLine("Inside model");
+                Console.WriteLine($"{talk} published to message queue");
+            });
 
-                    channel.QueueDeclare(
-                        queue: queueName,
-                        durable: true,
-                        exclusive: false,
-                        autoDelete: false,
-                        arguments: null
-                    );
+            // Console.WriteLine("Inside connection factory");
 
-                    var properties = channel.CreateBasicProperties();
-                    properties.Persistent = true;
+            // using (var connection = factory.CreateConnection())
+            // {
+            //     Console.WriteLine("Inside connection");
 
-                    List<byte[]> serializedTalks = new List<byte[]>();
+            //     using (var channel = connection.CreateModel())
+            //     {
+            //         Console.WriteLine("Inside model");
 
-                    talks.ForEach(talk =>
-                    {
-                        serializedTalks.Add(
-                            Encoding.UTF8.GetBytes(
-                                JsonConvert.SerializeObject(talk)
-                                ));
-                    });
+            //         channel.QueueDeclare(
+            //             queue: queueName,
+            //             durable: true,
+            //             exclusive: false,
+            //             autoDelete: false,
+            //             arguments: null
+            //         );
 
-                    serializedTalks.ForEach(body =>
-                    {
-                        channel.BasicPublish(exchange: "",
-                                routingKey: routingKey,
-                                basicProperties: properties,
-                                body: body);
+            //         var properties = channel.CreateBasicProperties();
+            //         properties.Persistent = true;
 
-                        Console.WriteLine($"{body} published to message queue");
-                    });
+            //         serializedTalks.ForEach(body =>
+            //         {
+            //             channel.BasicPublish(exchange: "",
+            //                     routingKey: routingKey,
+            //                     basicProperties: properties,
+            //                     body: body);
 
-                }
-            }
+            //             Console.WriteLine($"{body} published to message queue");
+            //         });
+
+            //     }
+            // }
         }
     }
 }
