@@ -36,8 +36,8 @@ spec:
   #   value: 3000
   # - name: maxLenBytes # Optional maximum length in bytes of a queue.
   #   value: 10485760
-  - name: exchangeKind
-    value: topic
+  # - name: exchangeKind
+  #   value: fanout
 # scopes:
 #   - rabbitmq-producer-service
 #   - rabbitmq-consumer

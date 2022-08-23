@@ -15,7 +15,9 @@ az k8s-extension create `
     --cluster-name $clusterName `
     --resource-group $resourceGroupName `
     --name myDaprExtension `
-    --extension-type Microsoft.Dapr
+    --extension-type Microsoft.Dapr `
+    --auto-upgrade-minor-version true
+
 
 #check the status of last command
 if (!$?) {

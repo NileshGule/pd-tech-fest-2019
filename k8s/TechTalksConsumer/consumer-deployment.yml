@@ -19,7 +19,7 @@ spec:
         app: rabbitmq-consumer
       annotations:
         dapr.io/enabled: "true"
-        dapr.io/app-id: "rabbitmq-consumer"
+        dapr.io/app-id: "techtalks-consumer"
         dapr.io/app-port: "80"
         dapr.io/config: "zipkin"
     spec:
