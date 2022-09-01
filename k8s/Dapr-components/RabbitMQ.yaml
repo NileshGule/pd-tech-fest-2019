@@ -7,7 +7,10 @@ spec:
   version: v1
   metadata:
   - name: host
-    value: "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672"
+    # value: "amqp://user:PASSWORD@rabbitmq.default.svc.cluster.local:5672"
+    secretKeyRef:
+      name: keda-rabbitmq-secret
+      key: host
   - name: consumerID
     value: "techtalks-consumer"
   - name: durable
