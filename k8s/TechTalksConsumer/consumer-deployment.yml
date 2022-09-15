@@ -31,11 +31,11 @@ spec:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Development"
             - name: RABBITMQ_HOST_NAME
-              value: "rabbitmq"
+              value: "20.212.110.83"
             - name: RABBITMQ_USER_NAME
               value: "user"
             - name: RABBITMQ_PASSWORD
-              value: "PASSWORD"
+              value: "tCUN6UizuwTZ"
             - name: RABBITMQ_BATCH_SIZE
               value: "75"
           resources:
