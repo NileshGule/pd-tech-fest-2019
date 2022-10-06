@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
-using RabbitMQ.Client;
-using Newtonsoft.Json;
 using TechTalksModel;
-using TechTalksModel.DTO;
 using Microsoft.Extensions.Configuration;
 using Dapr.Client;
 

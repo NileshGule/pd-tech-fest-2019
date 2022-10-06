@@ -341,5 +341,3 @@ groundlabs.md
 # .tfstate files
 *.tfstate
 *.tfstate.*
-
-powershell/tech-talks-container-app.ps1

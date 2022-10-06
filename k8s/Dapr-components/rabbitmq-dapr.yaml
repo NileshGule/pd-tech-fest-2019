@@ -1,0 +1,18 @@
+# statestore.yaml for Azure Blob storage component
+componentType: pubsub.rabbitmq
+version: v1
+metadata:
+- name: host
+  value: 'amqp://user:tCUN6UizuwTZ@20.212.110.83:5672/'
+- name: durable
+  value: true
+- name: deletedWhenUnused
+  value: false
+- name: autoAck
+  value: false
+- name: prefetchCount
+  value: 50
+- name: reconnectWait
+  value: 0
+- name: concurrencyMode
+  value: parallel  
