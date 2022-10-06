@@ -14,8 +14,12 @@
 
 az vm open-port --port 5672 --name rabbitmq  `
     --resource-group azure-container-app-rg
-    
+
 az vm open-port --port 15672 --name rabbitmq `
     --resource-group azure-container-app-rg --priority 1100
 
 ```
+
+## Link on creating RabbitMQ server using Azure CLI
+
+https://learn.microsoft.com/en-us/azure/virtual-machines/linux/cli-ps-findimage

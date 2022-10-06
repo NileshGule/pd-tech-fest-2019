@@ -1,9 +1,8 @@
-# statestore.yaml for Azure Blob storage component
 componentType: pubsub.rabbitmq
 version: v1
 metadata:
 - name: host
-  value: 'amqp://user:tCUN6UizuwTZ@20.212.110.83:5672/'
+  value: 'amqp://user:tCUN6UizuwTZ@20.212.110.83:5672/techtalks'
 - name: durable
   value: true
 - name: deletedWhenUnused
