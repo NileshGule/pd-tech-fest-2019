@@ -1,8 +1,8 @@
 Write-Host "Provisioning AKS cluster with default parameters" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\initializeAKS.ps1")
 
-Write-Host "Installing RabbitMQ on cluster" -ForegroundColor Cyan
-& ((Split-Path $MyInvocation.InvocationName) + "\deployRabbitMQ.ps1")
+# Write-Host "Installing RabbitMQ on cluster" -ForegroundColor Cyan
+# & ((Split-Path $MyInvocation.InvocationName) + "\deployRabbitMQ.ps1")
 
 Write-Host "Installing KEDA on cluster" -ForegroundColor Cyan
 & ((Split-Path $MyInvocation.InvocationName) + "\deployKEDA.ps1")
