@@ -2,7 +2,7 @@ componentType: pubsub.rabbitmq
 version: v1
 metadata:
 - name: host
-  value: 'amqp://user:tCUN6UizuwTZ@20.212.110.83:5672/techtalks'
+  value: 'amqp://user:tCUN6UizuwTZ@20.24.98.54:5672/'
 - name: durable
   value: true
 - name: deletedWhenUnused
@@ -15,3 +15,5 @@ metadata:
   value: 0
 - name: concurrencyMode
   value: parallel  
+- name: exchangeKind
+  value: fanout

@@ -23,3 +23,7 @@ az vm open-port --port 15672 --name rabbitmq `
 ## Link on creating RabbitMQ server using Azure CLI
 
 https://learn.microsoft.com/en-us/azure/virtual-machines/linux/cli-ps-findimage
+
+## Link to issue related to Dapr consumer for RabbitMQ
+
+https://stackoverflow.com/questions/65512137/dapr-binding-for-rabbitmq-not-working-using-dapr-pub-sub-sample
