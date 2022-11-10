@@ -10,7 +10,7 @@ Param(
     [parameter(Mandatory = $false)]
     [int16]$workerNodeCount = 3,
     [parameter(Mandatory = $false)]
-    [string]$kubernetesVersion = "1.24.0",
+    [string]$kubernetesVersion = "1.24.6",
     [parameter(Mandatory = $false)]
     [string]$acrRegistryName = "ngAcrRegistry"
 )
@@ -50,8 +50,9 @@ if ($aksCLusterExists -eq $false) {
         --enable-managed-identity `
         --output=jsonc `
         --kubernetes-version=$kubernetesVersion `
-        --attach-acr=$acrRegistryName 
-        # --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
+        --attach-acr=$acrRegistryName `
+        --os-sku=mariner
+    # --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
 
     #check the status of last command
     if (!$?) {
