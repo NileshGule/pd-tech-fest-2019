@@ -51,6 +51,8 @@ if ($aksCLusterExists -eq $false) {
         --output=jsonc `
         --kubernetes-version=$kubernetesVersion `
         --attach-acr=$acrRegistryName `
+        -s Standard_DS3_v2 `
+        --node-osdisk-type Ephemeral `
         --os-sku=mariner
     # --aks-custom-headers="CustomizedUbuntu=aks-ubuntu-1804,ContainerRuntime=containerd" `
 
