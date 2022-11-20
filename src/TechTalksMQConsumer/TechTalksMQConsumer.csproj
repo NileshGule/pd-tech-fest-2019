@@ -16,7 +16,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
-    <PackageReference Include="prometheus-net" Version="5.0.2" />
+    <PackageReference Include="prometheus-net" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
