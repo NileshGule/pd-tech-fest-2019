@@ -22,10 +22,6 @@ namespace TechTalksAPI.Messaging
         // public TechTalksEventPublisher(IConfiguration config)
         public TechTalksEventPublisher()
         {
-            // rabbitMQHostName = config.GetValue<string>("RABBITMQ_HOST_NAME");
-            // rabbitMQUserName = config.GetValue<string>("RABBITMQ_USER_NAME");
-            // rabbitMQPassword = config.GetValue<string>("RABBITMQ_PASSWORD");
-
             rabbitMQHostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST_NAME");
             rabbitMQUserName = Environment.GetEnvironmentVariable("RABBITMQ_USER_NAME");
             rabbitMQPassword = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD");
