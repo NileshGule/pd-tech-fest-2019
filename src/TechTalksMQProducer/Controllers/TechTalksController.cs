@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+
 using Microsoft.AspNetCore.Mvc;
 using TechTalksAPI.Messaging;
 using TechTalksModel;
@@ -9,6 +8,7 @@ using Bogus;
 
 namespace TechTalksAPI.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class TechTalksController : Controller
     {

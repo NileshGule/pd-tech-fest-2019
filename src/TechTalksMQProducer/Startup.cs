@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using TechTalksAPI.Messaging;
-
-using Microsoft.Extensions.Hosting;
-using Prometheus;
-using Sentry.AspNetCore;
+﻿using TechTalksAPI.Messaging;
 
 namespace TechTalksAPI
 {
@@ -46,9 +37,9 @@ namespace TechTalksAPI
 
             app.UseRouting();
 
-            app.UseSentryTracing();
+            // app.UseSentryTracing();
 
-            app.UseHttpMetrics();
+            // app.UseHttpMetrics();
 
             // Expose deault Prometheus Metrics
             // app.UseMetricServer();
@@ -56,8 +47,8 @@ namespace TechTalksAPI
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                
-                endpoints.MapMetrics();
+
+                // endpoints.MapMetrics();
             });
 
         }

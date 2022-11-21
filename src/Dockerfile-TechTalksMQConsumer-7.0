@@ -1,0 +1,25 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+
+WORKDIR /app
+
+COPY TechTalksMQConsumer /TechTalksMQConsumer/
+COPY TechTalksModel /TechTalksModel/
+
+# COPY NuGet.config ./
+
+WORKDIR /TechTalksMQConsumer
+RUN dotnet restore
+
+#COPY . ./
+
+RUN dotnet publish --configuration Release --output releaseOutput --no-restore
+
+#build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+
+WORKDIR /TechTalksMQConsumer
+
+COPY --from=build /TechTalksMQConsumer/releaseOutput ./
+
+ENTRYPOINT ["dotnet", "TechTalksMQConsumer.dll"]
+
