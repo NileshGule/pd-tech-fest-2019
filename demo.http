@@ -1,0 +1,2 @@
+GET http://20.198.212.204/api/TechTalks/Generate
+?numberOfMessages=10000
